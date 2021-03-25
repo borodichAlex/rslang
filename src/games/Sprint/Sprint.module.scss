@@ -1,0 +1,30 @@
+.root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: antiquewhite;
+    height: 100vh;
+}
+
+.container {
+    border: thick double #8ca5a5;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    height: 500px;
+    width: 500px;
+}
+
+.timer {
+    position: absolute;
+    right: 35px;
+
+    font-size: 24px;
+    text-align: center;
+    
+    height: 36px;
+    width: 36px;
+
+    border: 2px solid salmon;
+    border-radius: 50%;
+}
