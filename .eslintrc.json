@@ -35,6 +35,9 @@
         "@typescript-eslint/no-unused-expressions": "off",
         "no-unused-expressions": "off",
         "react/jsx-indent": "off",
+        "react/jsx-indent-props": "off",
+        "no-plusplus": "off",
+        "react/jsx-one-expression-per-line": "off",
         // note you must disable the base rule as it can report incorrect errors
         "no-use-before-define": "off",
         "@typescript-eslint/no-use-before-define": ["error"],
