@@ -54,6 +54,14 @@
                 "ts": "never",
                 "tsx": "never"
             }
+        ],
+        "object-curly-spacing": ["warn", "always"],
+        "no-unused-vars": [
+            "warn",
+            {
+                "vars": "all",
+                "args": "none"
+            }
         ]
     }
 }
