@@ -3,4 +3,5 @@ export type IDataGame = {
   goal: string;
   description: string;
   bg: string;
+  amountWords: number;
 }
