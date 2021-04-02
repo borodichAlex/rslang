@@ -1,6 +1,7 @@
 import React from 'react';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import { IconButton } from '@material-ui/core';
+import { urlBaseDataWords } from '../common/GamePage';
 import styles from './styles.module.css';
 
 type IProps = {
@@ -17,7 +18,7 @@ const RightWord = ({
   onPlayAudio,
 }: IProps) => (
   <div className={styles.root}>
-    {isSelectedAnswer && <img className={styles.img} src={imageUrl} alt={word} />}
+    {isSelectedAnswer && <img className={styles.img} src={urlBaseDataWords + imageUrl} alt={word} />}
     <div className={styles.wrapWord}>
       <IconButton
         className={`${styles.icon} ${!isSelectedAnswer && styles.iconLarge}`}
