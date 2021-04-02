@@ -52,6 +52,9 @@
                 "vars": "all",
                 "args": "none"
             }
-        ]
+        ],
+        "indent": "off",
+        "react/jsx-indent": "off",
+        "react/jsx-indent-props": "off"
     }
 }
