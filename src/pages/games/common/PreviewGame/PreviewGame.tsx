@@ -1,9 +1,6 @@
 import React from 'react';
 import { Typography, Button, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  useLocation,
-} from 'react-router-dom';
 import ListDifficultyLevel from './ListDifficultyLevel/ListDifficultyLevel';
 import { IFnSetComplexity } from '../../interfaces/IFnSetComplexity';
 import styles from './styles.module.css';
@@ -13,30 +10,28 @@ type IProps = {
   dataGame: IDataGame;
   onStart: () => void;
   onSetComplexity: IFnSetComplexity;
+  isShowComplexity: boolean;
 }
 
 const useStyles = makeStyles({
   root: {
-    display: 'grid',
-    placeContent: 'center',
     minHeight: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
-  content: ({ isShowDifficulty }: { isShowDifficulty: boolean }) => ({
-    gridColumn: isShowDifficulty ? '1 / 2' : '1 / 3',
+  content: ({ isShowComplexity }: { isShowComplexity: boolean }) => ({
+    gridColumn: isShowComplexity ? '1 / 2' : '1 / 3',
   }),
 
-  wrapBtn: ({ isShowDifficulty }: { isShowDifficulty: boolean }) => ({
-    gridColumn: isShowDifficulty ? '1' : '1 / 3',
+  wrapBtn: ({ isShowComplexity }: { isShowComplexity: boolean }) => ({
+    gridColumn: isShowComplexity ? '1' : '1 / 3',
   }),
 
   glass: {
     background: 'linear-gradient(to right bottom,rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3))',
     backdropFilter: 'blur(2rem)',
-  },
-
-  name: {
-    marginBottom: '1rem',
   },
 
   description: {
@@ -61,27 +56,25 @@ const PreviewGame = (props: IProps) => {
     },
     onStart,
     onSetComplexity,
+    isShowComplexity,
   } = props;
 
-  const location: {state: {prevPath: string}} = useLocation();
-  const isShowDifficulty = location.state === undefined || location.state.prevPath === '/menu';
-
-  const stylesProps = { isShowDifficulty };
+  const stylesProps = { isShowComplexity };
   const classes = useStyles(stylesProps);
 
   return (
     <section className={classes.root}>
       <div className={`${classes.glass} ${styles.container}`}>
         <Grid item className={`${styles.content} ${classes.content}`}>
-          <Typography variant="h2" className={classes.name}>{name}</Typography>
+          <h2 className={styles.name}>{name}</h2>
           <Typography variant="subtitle1">{goal}</Typography>
           <Typography className={classes.description} variant="body1">{description}</Typography>
         </Grid>
         <Grid item className={`${styles.wrapBtn} ${classes.wrapBtn}`}>
-          <Button variant="contained" color="primary" size="large" onClick={onStart}>Start game</Button>
+          <Button variant="outlined" size="large" onClick={onStart}>Start game</Button>
         </Grid>
         {
-          isShowDifficulty && (
+          isShowComplexity && (
           <Grid item className={`${classes.sidebar} ${styles.sidebar}`}>
             <Typography variant="h4">Сложность</Typography>
             <ListDifficultyLevel onSetComplexity={onSetComplexity} />
