@@ -18,4 +18,4 @@ interface IWordObject {
 export type {
   // eslint-disable-next-line import/prefer-default-export
   IWordObject,
-}
+};
