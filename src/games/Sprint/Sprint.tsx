@@ -6,8 +6,16 @@ import Check from '../../assets/Check.png';
 import Error from '../../assets/Error.mp3';
 import Correct from '../../assets/Correct.mp3';
 import Replay from '../../assets/Replay.png';
+import { IWord } from '../../interfaces/IWord';
+import { IAnswersGame } from '../../pages/games/common/GamePage';
 
-const Sprint = () => {
+interface IProps {
+    words: IWord[];
+    onSetPage: (page: string) => void;
+    onSetAnswers: (answers: IAnswersGame) => void;
+}
+
+const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
     const [score, setScore] = useState(0);
     const [countDown, _setCountDown] = useState(0);
     const [complexity, _setComplexity] = useState(0);
@@ -21,6 +29,9 @@ const Sprint = () => {
     const [color, setColor] = useState('rgb(255, 255, 255)');
     const [lastWord, _setLastWord] = useState<any>([]);
     const [correctTransl, _setCorrectTransl] = useState('');
+
+    const [correctAnswers, setCorrectAnswers] = useState<string[]>([]);
+    const [wrongAnswers, setWrongAnswers] = useState<string[]>([]);
 
     const isCorrectRef = useRef(isCorrect);
     const countDownRef = useRef(countDown);
@@ -73,6 +84,8 @@ const Sprint = () => {
 
     useEffect(() => {
         handleStartGame();
+        setWrongAnswers([words[0].id]);
+        setCorrectAnswers([words[3].id]);
     }, []);
 
     useEffect(() => {
@@ -84,6 +97,10 @@ const Sprint = () => {
                 setGameOverClass('gameOver');
                 setWord('');
                 setTranslation('');
+                onSetAnswers({
+                    listCorrect: correctAnswers,
+                    listWrong: wrongAnswers,
+                  });
             }
         }, 1000);
 
@@ -96,7 +113,7 @@ const Sprint = () => {
         handleSetTask();
         setContainerClass('container');
         document.addEventListener('keyup', handleAnswer);
-        setCountDown(60);
+        setCountDown(3);
         setColor('white');
         setScore(0);
         setGameOverClass('gameOver_hidden');
@@ -178,6 +195,7 @@ const Sprint = () => {
         const page = Math.floor(Math.random() * 30);
         getData(`https://react-learnwords-example.herokuapp.com/words?group=${complexity}&page=${page}`)
             .then((responce) => {
+                console.log(responce);
                 const currindex = Math.floor(Math.random() * 20);
                 const correctTranslation = Math.floor(Math.random() * 2);
                 setIsCorrect(correctTranslation);
