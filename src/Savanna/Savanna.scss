@@ -1,0 +1,13 @@
+.main {
+    width: 100vw;
+    height: 100vh;
+    div {
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        // background-image: url(https://wallpaperset.com/w/full/e/1/f/245266.jpg);
+        background-image: url(https://picserio.com/data/out/270/africa-wallpaper_4812935.jpg);
+        background-size: cover;
+        transition: 1s linear;
+    }
+}
