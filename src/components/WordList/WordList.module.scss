@@ -1,16 +1,13 @@
 .root {
     display: flex;
-    justify-content: center;
     align-items: center;
 
-    height: 100vh;
 
     background-color: rgb(85, 151, 209);
 }
 
 .page {
-    height: 650px;
-    width: 550px;
+    width: 1250px;
 
     background: linear-gradient( rgba(255, 255, 255, 0.653), rgba(255, 255, 255, 0.455)) ;
 
@@ -19,6 +16,9 @@
     overflow: scroll;
     padding-top: 20px;
     padding-left: 15px;
+    margin-top: 150px;
+    margin-right: 0;
+    margin-left: auto;
 
     box-sizing: border-box;
 
@@ -35,11 +35,62 @@
 }
 
 .wordBlock {
+    position: relative;
+
     transition: 0.4s;
 
     border-radius: 10px;
 
     padding: 10px;
+}
+
+.text_block {
+    display: flex;
+    align-items: center;
+}
+
+.star_button {
+    background: none;
+    border: none;
+    outline: none;
+
+    position: absolute;
+    right: 48px;
+}
+
+.star_button > img {
+    width: 24px;
+}
+
+.basket_button {
+    background: none;
+    border: none;
+    outline: none;
+
+    position: absolute;
+    top: 11px;
+    right: 10px;
+}
+
+.basket_button > img {
+    width: 24px;
+}
+
+.word_translation_audio {
+    background: none;
+    border: none;
+    outline: none;
+
+    margin-bottom: -10px;
+}
+
+.word_translation_audio > img {
+    transition: 0.3s;
+    width: 24px;
+}
+
+.word_translation_audio > img:hover {
+    width: 26px;
 }
 
 .wordBlock:hover {
