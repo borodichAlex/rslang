@@ -1,0 +1,74 @@
+.root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  background: linear-gradient(to right bottom,rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
+  backdrop-filter: blur(2rem);
+
+  border-radius: 1rem;
+  padding: 5px;
+  margin: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wrapAnswers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.wrapList {
+  background-color: rgba(255, 255, 255, 0.555);
+  padding: 10px;
+  border-radius: 1rem;
+  margin: 5px;
+}
+
+.list {
+  margin-top: .5rem;
+  min-width: 240px;
+  max-height: 50vh;
+  overflow-y: scroll;
+}
+
+.wrapList > h3 {
+  text-align: center;
+}
+
+.heading {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.amount {
+  display: inline-block;
+  padding: 5px 20px;
+  border-radius: 1rem;
+  margin-left: 10px;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.correct {
+  background-color: green;
+}
+
+.wrong {
+  background-color: brown;
+}
+
+.icon {
+  min-width: 32px;
+}
+
+.back {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
