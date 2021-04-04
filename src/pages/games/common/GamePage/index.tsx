@@ -5,7 +5,7 @@ import PreviewGame from '../PreviewGame/PreviewGame';
 import { IWord } from '../../../../interfaces/IWord';
 import { IFnSetComplexity } from '../../interfaces/IFnSetComplexity';
 import { IDataGame } from '../../interfaces/IDataGame';
-import StatisticsGame from '../StaticticsGame';
+import StatisticsGame from '../StatisticsGame';
 
 export const urlBaseDataWords = 'https://raw.githubusercontent.com/borodichalex/react-rslang-be/master/';
 

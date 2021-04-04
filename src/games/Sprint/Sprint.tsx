@@ -18,75 +18,39 @@ interface IProps {
 const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
     const [score, setScore] = useState(0);
     const [countDown, _setCountDown] = useState(0);
-    const [complexity, _setComplexity] = useState(0);
+    const [complexity, setComplexity] = useState(0);
     const [word, setWord] = useState('');
     const [translation, setTranslation] = useState('');
-    const [isCorrect, _setIsCorrect] = useState(0);
-    const [streak, _setStreak] = useState(0);
-    const [factor, _setFactor] = useState(1);
-    const [gameOverClass, _setGameOverClass] = useState('gameOver_hidden');
+    const [isCorrect, setIsCorrect] = useState(0);
+    const [streak, setStreak] = useState(0);
+    const [factor, setFactor] = useState(1);
     const [containerClass, setContainerClass] = useState('container');
-    const [color, setColor] = useState('rgb(255, 255, 255)');
-    const [lastWord, _setLastWord] = useState<any>([]);
-    const [correctTransl, _setCorrectTransl] = useState('');
+    const [color, setColor] = useState('rgb(255, 255, 255, 0.0)');
+    const [lastWord, setLastWord] = useState<any>([]);
+    const [correctTransl, setCorrectTransl] = useState('');
+    const [currentId, setCurrentId] = useState('');
 
     const [correctAnswers, setCorrectAnswers] = useState<string[]>([]);
     const [wrongAnswers, setWrongAnswers] = useState<string[]>([]);
 
-    const isCorrectRef = useRef(isCorrect);
     const countDownRef = useRef(countDown);
-    const complexityRef = useRef(complexity);
-    const streakRef = useRef(streak);
-    const gameOverClassRef = useRef(gameOverClass);
-    const factorRef = useRef(factor);
-    const lastWordRef = useRef(lastWord);
-    const correctTranslRef = useRef(correctTransl);
-
-    const setCorrectTransl = (newData: string) => {
-        correctTranslRef.current = newData;
-        _setCorrectTransl(newData);
-    };
-
-    const setLastWord = (newData: any) => {
-        lastWordRef.current = newData;
-        _setLastWord(newData);
-    };
-
-    const setIsCorrect = (newData: number) => {
-        isCorrectRef.current = newData;
-        _setIsCorrect(newData);
-    };
 
     const setCountDown = (newData: number) => {
         countDownRef.current = newData;
         _setCountDown(newData);
     };
 
-    const setComplexity = (newData: number) => {
-        complexityRef.current = newData;
-        _setComplexity(newData);
-    };
-
-    const setStreak = (newData: number) => {
-        streakRef.current = newData;
-        _setStreak(newData);
-    };
-
-    const setGameOverClass = (newData: string) => {
-        gameOverClassRef.current = newData;
-        _setGameOverClass(newData);
-    };
-
-    const setFactor = (newData: number) => {
-        factorRef.current = newData;
-        _setFactor(newData);
-    };
-
     useEffect(() => {
         handleStartGame();
-        setWrongAnswers([words[0].id]);
-        setCorrectAnswers([words[3].id]);
     }, []);
+
+    useEffect(() => {
+        document.addEventListener('keyup', handleAnswer);
+
+        return () => {
+            document.removeEventListener('keyup', handleAnswer);
+        };
+    }, [word]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -94,13 +58,10 @@ const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
                 setCountDown(countDown - 1);
             } else {
                 clearInterval(interval);
-                setGameOverClass('gameOver');
-                setWord('');
-                setTranslation('');
                 onSetAnswers({
                     listCorrect: correctAnswers,
                     listWrong: wrongAnswers,
-                  });
+                });
             }
         }, 1000);
 
@@ -112,11 +73,9 @@ const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
     const handleStartGame = () => {
         handleSetTask();
         setContainerClass('container');
-        document.addEventListener('keyup', handleAnswer);
-        setCountDown(3);
-        setColor('white');
+        setCountDown(60);
+        setColor('rgb(255, 255, 255, 0.0)');
         setScore(0);
-        setGameOverClass('gameOver_hidden');
         setFactor(1);
         setStreak(0);
     };
@@ -125,48 +84,54 @@ const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
         setContainerClass('containerR');
         setTimeout(() => setContainerClass('container'), 500);
         score ? setScore((prewScore) => prewScore - 10) : null;
-        setColor('white');
+        setColor('rgb(255, 255, 255, 0.0)');
         setStreak(0);
         setFactor(1);
         playSound(Error);
-        const newArr = lastWordRef.current;
-        newArr.unshift(<div>Неверно: {word} переводится как {correctTranslRef.current}</div>);
+        const newArr = lastWord;
+        newArr.unshift(<div>Неверно: {word} переводится как {correctTransl}</div>);
         setLastWord(newArr);
+        const newAnswers = wrongAnswers;
+        newAnswers.push(currentId);
+        setWrongAnswers(newAnswers);
     };
 
     const handleCorrect = () => {
         setContainerClass('containerG');
         setTimeout(() => setContainerClass('container'), 500);
-        setScore((prewScore) => prewScore + 10 * factorRef.current);
+        setScore((prewScore) => prewScore + 10 * factor);
         playSound(Correct);
-        if (streakRef.current < 3) {
-            setStreak(streakRef.current + 1);
-        } else if (factorRef.current < 7) {
+        if (streak < 3) {
+            setStreak(streak + 1);
+        } else if (factor < 7) {
             setStreak(0);
-            setFactor(factorRef.current + 2);
+            setFactor(factor + 2);
             if (factor === 1) {
-                setColor('aqua');
+                setColor('rgba(0, 255, 255, 0.17)');
             } else if (factor === 3) {
-                setColor('lime');
+                setColor('rgba(0, 255, 139, 0.17)');
             } else if (factor === 5) {
-                setColor('rgb(243, 92, 92)');
+                setColor('rgba(0, 255, 0, 0.17)');
             }
         }
-        const newArr = lastWordRef.current;
-        newArr.unshift(<div>Верно: {word} переводится как {correctTranslRef.current}</div>);
+        const newArr = lastWord;
+        newArr.unshift(<div>Верно: {word} переводится как {correctTransl}</div>);
         setLastWord(newArr);
+        const newAnswers = correctAnswers;
+        newAnswers.push(currentId);
+        setCorrectAnswers(newAnswers);
     };
 
     const handleAnswer = (e: KeyboardEvent) => {
         if (countDownRef.current) {
             if (e.key === 'ArrowRight') {
-                if (isCorrectRef.current) {
+                if (isCorrect) {
                     handleCorrect();
                 } else {
                     handleIncorrect();
                 }
             } else if (e.key === 'ArrowLeft') {
-                if (!isCorrectRef.current) {
+                if (!isCorrect) {
                     handleCorrect();
                 } else {
                     handleIncorrect();
@@ -179,11 +144,11 @@ const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
     const handleAnswerButtons = (answer: boolean) => {
         if (countDownRef.current) {
             if (answer) {
-                if (isCorrectRef.current) {
+                if (isCorrect) {
                     handleCorrect();
                 } else handleIncorrect();
             } else if (!answer) {
-                if (!isCorrectRef.current) {
+                if (!isCorrect) {
                     handleCorrect();
                 } else handleIncorrect();
             }
@@ -192,20 +157,16 @@ const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
     };
 
     const handleSetTask = () => {
-        const page = Math.floor(Math.random() * 30);
-        getData(`https://react-learnwords-example.herokuapp.com/words?group=${complexity}&page=${page}`)
-            .then((responce) => {
-                console.log(responce);
-                const currindex = Math.floor(Math.random() * 20);
-                const correctTranslation = Math.floor(Math.random() * 2);
-                setIsCorrect(correctTranslation);
-                setWord(responce[currindex].word);
-                setCorrectTransl(responce[currindex].wordTranslate);
-                correctTranslation
-                    ? setTranslation(responce[currindex].wordTranslate)
-                    : setTranslation(responce[handleGetIncorrectTranslation(currindex)]
-                        .wordTranslate);
-            });
+        const currindex = Math.floor(Math.random() * 600);
+        const correctTranslation = Math.floor(Math.random() * 2);
+        setIsCorrect(correctTranslation);
+        setCurrentId(words[currindex].id);
+        setWord(words[currindex].word);
+        setCorrectTransl(words[currindex].wordTranslate);
+        correctTranslation
+            ? setTranslation(words[currindex].wordTranslate)
+            : setTranslation(words[handleGetIncorrectTranslation(currindex)]
+                .wordTranslate);
     };
 
     const handleGetIncorrectTranslation = (currIndex: number) => {
@@ -226,50 +187,6 @@ const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
 
     return (
         <div className={s.root}>
-            <div className={s.settings}>
-                <div>Уровень сложности</div>
-                <button
-                    type="button"
-                    onClick={() => setComplexity(0)}
-                >
-                    1
-                </button>
-
-                <button
-                    type="button"
-                    onClick={() => setComplexity(1)}
-                >
-                    2
-                </button>
-
-                <button
-                    type="button"
-                    onClick={() => setComplexity(2)}
-                >
-                    3
-                </button>
-
-                <button
-                    type="button"
-                    onClick={() => setComplexity(3)}
-                >
-                    4
-                </button>
-
-                <button
-                    type="button"
-                    onClick={() => setComplexity(4)}
-                >
-                    5
-                </button>
-
-                <button
-                    type="button"
-                    onClick={() => setComplexity(5)}
-                >
-                    6
-                </button>
-            </div>
             <div className={s.score}>
                 {score}
             </div>
@@ -305,17 +222,6 @@ const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
                         Верно
                     </button>
                 </div>
-            </div>
-
-            <div className={s[gameOverClass]}>
-                <span>Игра окончена</span>
-                <span>Счёт: {score} </span>
-                <button
-                    onClick={handleStartGame}
-                    type="button"
-                >
-                    <img src={Replay} alt="Заново" />
-                </button>
             </div>
             <div className={s.lastWords}>
                 {lastWord.reverse().map((item: any) => item)}
