@@ -7,6 +7,7 @@ import Sound from '../../assets/Sound.png';
 import Star from '../../assets/Star.png';
 import ActiveStar from '../../assets/ActiveStar.png';
 import Basket from '../../assets/Basket.png';
+import { urlBaseDataWords } from '../../pages/games/common/GamePage';
 
 type TGroup = 0 | 1 | 2 | 3 | 4 | 5;
 
@@ -26,6 +27,25 @@ const WordList = () => {
     if (!data.length) {
         return <div>Loading...</div>;
     }
+
+    const audioNode = new Audio();
+
+    const handlePlayAudio = (audioUrl: string) => {
+        const url = urlBaseDataWords + audioUrl;
+        const isNewUrl = url !== audioNode.currentSrc;
+        const isPlaying = !audioNode.ended;
+
+        if (isNewUrl) {
+            if (isPlaying) {
+                audioNode.pause();
+            }
+            audioNode.src = url;
+        } else if (isPlaying) {
+            audioNode.currentTime = 0;
+        }
+
+        audioNode.play();
+    };
 
     return (
         <div className={s.root}>
@@ -49,7 +69,7 @@ const WordList = () => {
                             {index + 1}. {item.word} - [{item.transcription}] - {item.wordTranslate}
                             <button
                                 type="button"
-                                onClick={() => console.log('playSound(item.sound)')}
+                                onClick={() => handlePlayAudio(item.audio)}
                                 className={s.word_translation_audio}
                             >
                                 <img src={Sound} alt="PlaySound" />
@@ -60,7 +80,7 @@ const WordList = () => {
                             <span style={{ marginLeft: '15px' }} dangerouslySetInnerHTML={{ __html: item.textMeaning }} />
                             <button
                                     type="button"
-                                    onClick={() => console.log('playSound(item.sound)')}
+                                    onClick={() => handlePlayAudio(item.audioMeaning)}
                                     className={s.word_translation_audio}
                             >
                                     <img src={Sound} alt="PlaySound" />
@@ -73,7 +93,7 @@ const WordList = () => {
                             <span style={{ marginLeft: '15px' }} dangerouslySetInnerHTML={{ __html: item.textExample }} />
                             <button
                                     type="button"
-                                    onClick={() => console.log('playSound(item.sound)')}
+                                    onClick={() => handlePlayAudio(item.audioExample)}
                                     className={s.word_translation_audio}
                             >
                                     <img src={Sound} alt="PlaySound" />
