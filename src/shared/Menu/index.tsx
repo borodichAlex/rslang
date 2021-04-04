@@ -42,8 +42,13 @@ const authLinks = [
 
 function Menu() {
   const [isAuthUser, setIsAuthUser] = useState(false);
-  const [isOpenMenu, setIsOpenMenu] = useState(true);
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
   const handleToggleMenu = () => {
+    if (!isOpenMenu) {
+      document.body.style.overflowY = 'hidden';
+    } else {
+      document.body.style.overflowY = 'auto';
+    }
     setIsOpenMenu((is) => !is);
   };
   const handleToggleAuthUser = () => {
@@ -51,19 +56,21 @@ function Menu() {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <IconButton className={styles.iconMenu} id="toggleMenu" aria-label="toggle menu" onClick={handleToggleMenu}>
+    <div className={`${styles.menu} ${isOpenMenu && styles.menuShow}`}>
+      <IconButton className={styles.iconMenu} aria-label="toggle menu" onClick={handleToggleMenu}>
         {isOpenMenu ? <CloseIcon /> : <MenuIcon />}
       </IconButton>
-      <div className={`${styles.menu} ${!isOpenMenu && styles.menuHide}`}>
+      <div className={styles.backdrop} />
+      <div className={styles.body}>
+
         <div className={styles.wrapHeadingMenu}>
           <Typography className={styles.logo} variant="h4" component="h1" color="initial">RS Lang</Typography>
           {
             isAuthUser ? <Avatar urlImg={imgUser} />
             : (
-                <Button variant="outlined" color="default" onClick={handleToggleAuthUser}>
+                <Button variant="outlined" onClick={handleToggleAuthUser}>
                   <Link
-                    className={styles.link}
+                    className={styles.login}
                     underline="none"
                     component={RouterLink}
                     to={{ pathname: '/login', state: { prevPath: '/menu' } }}
@@ -76,7 +83,7 @@ function Menu() {
         <ul className={styles.list}>
           {
             links.map(({title, path}) => (
-              <li className={styles.item}>
+              <li key={title} className={styles.item}>
                 <Link
                   className={styles.link}
                   underline="none"
@@ -92,7 +99,7 @@ function Menu() {
             <>
               {
                 authLinks.map(({title, path}) => (
-                  <li className={styles.item}>
+                  <li key={title} className={styles.item}>
                     <Link
                       className={styles.link}
                       underline="none"
@@ -105,14 +112,21 @@ function Menu() {
                 ))
               }
               <li className={styles.item}>
-                <Button onClick={handleToggleAuthUser}>
+                <Link
+                  onClick={handleToggleAuthUser}
+                  className={styles.link}
+                  underline="none"
+                  component={RouterLink}
+                  to={{ state: { prevPath: '/menu' } }}
+                >
                   Log out
-                </Button>
+                </Link>
               </li>
             </>
           )}
         </ul>
       </div>
+
     </div>
   );
 }
