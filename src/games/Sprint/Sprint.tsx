@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import playSound from '../../utils/playSound';
-import getData from '../../utils/getData';
 import s from './Sprint.module.scss';
 import Check from '../../assets/Check.png';
+import Back from '../../assets/Back.png';
 import Error from '../../assets/Error.mp3';
 import Correct from '../../assets/Correct.mp3';
-import Replay from '../../assets/Replay.png';
 import { IWord } from '../../interfaces/IWord';
 import { IAnswersGame } from '../../pages/games/common/GamePage';
 import ToggleFullScreen from '../../pages/games/common/ToggleFullScreen';
@@ -190,6 +189,14 @@ const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
             <div className={s.toggleFullScreen}>
                 <ToggleFullScreen />
             </div>
+
+            <button
+                type="button"
+                onClick={() => onSetPage('MENU_PAGE')}
+                className={s.exit}
+            >
+                <img src={Back} alt="Back" />
+            </button>
             <div className={s.score}>
                 {score}
             </div>

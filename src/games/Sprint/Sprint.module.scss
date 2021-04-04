@@ -182,3 +182,16 @@
     top: 0;
     right: 0;
 }
+
+.exit {
+    position: absolute;
+    top: 5px;
+    left: 0;
+
+    border: none;
+    background: none;
+}
+
+.exit > img {
+    width: 48px;
+}

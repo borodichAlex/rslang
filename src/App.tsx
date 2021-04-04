@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Route path="/" exact>
+        <Route path="/games/sprint">
           <GamePage dataGame={sprintData} Game={Sprint} />
         </Route>
       </BrowserRouter>
