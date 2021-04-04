@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import playSound from '../../utils/playSound';
 import s from './Sprint.module.scss';
 import Check from '../../assets/Check.png';
-import Back from '../../assets/Back.png';
+import BackTo from '../../assets/BackTo.png';
 import Error from '../../assets/Error.mp3';
 import Correct from '../../assets/Correct.mp3';
 import { IWord } from '../../interfaces/IWord';
@@ -195,7 +195,7 @@ const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
                 onClick={() => onSetPage('MENU_PAGE')}
                 className={s.exit}
             >
-                <img src={Back} alt="Back" />
+                <img src={BackTo} alt="Back" />
             </button>
             <div className={s.score}>
                 {score}
