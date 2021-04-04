@@ -8,6 +8,7 @@ import Correct from '../../assets/Correct.mp3';
 import Replay from '../../assets/Replay.png';
 import { IWord } from '../../interfaces/IWord';
 import { IAnswersGame } from '../../pages/games/common/GamePage';
+import ToggleFullScreen from '../../pages/games/common/ToggleFullScreen';
 
 interface IProps {
     words: IWord[];
@@ -18,7 +19,6 @@ interface IProps {
 const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
     const [score, setScore] = useState(0);
     const [countDown, _setCountDown] = useState(0);
-    const [complexity, setComplexity] = useState(0);
     const [word, setWord] = useState('');
     const [translation, setTranslation] = useState('');
     const [isCorrect, setIsCorrect] = useState(0);
@@ -187,6 +187,9 @@ const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
 
     return (
         <div className={s.root}>
+            <div className={s.toggleFullScreen}>
+                <ToggleFullScreen />
+            </div>
             <div className={s.score}>
                 {score}
             </div>
