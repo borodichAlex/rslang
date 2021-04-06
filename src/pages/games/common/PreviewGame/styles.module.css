@@ -9,6 +9,9 @@
   border-radius: 1.5rem;
   padding: 1.5em;
   margin: 1em;
+  
+  min-width: 25rem;
+  transition: min-width 0.3s;
 }
 
 @media(min-width: 650px) {
@@ -16,6 +19,14 @@
     gap: 1rem;
     grid-template-columns: 60% 40%;
     grid-template-rows: 1fr auto;
+
+    min-width: 35em;
+  }
+}
+
+@media(max-width: 450px) {
+  .container {
+    min-width: 15rem;
   }
 }
 
