@@ -10,5 +10,5 @@
 - Run `npm run install` in command line
 - Run `npm run start` in command line
 
-### Link to the demo [https://borodichalex-rslang.netlify.app/](https://borodichalex-rslang.netlify.app/)
+### Link to the demo [https://rslang-team-33.netlify.app/](https://rslang-team-33.netlify.app/)
 
