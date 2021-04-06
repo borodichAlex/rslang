@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {
   BrowserRouter as Router,
   Route,
@@ -11,7 +10,7 @@ import {
   Game as AudioChallenge,
   description as DataAudioChallenge,
 } from './pages/games/audioChallenge';
-import Sprint from './games/Sprint/Sprint';
+import Sprint from './pages/games/Sprint/Sprint';
 import { sprintData } from './helpers/gamesData';
 import styles from './stylesApp.module.css';
 
