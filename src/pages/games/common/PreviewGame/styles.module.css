@@ -9,7 +9,7 @@
   border-radius: 1.5rem;
   padding: 1.5em;
   margin: 1em;
-
+  
   min-width: 25rem;
   transition: min-width 0.3s;
 }

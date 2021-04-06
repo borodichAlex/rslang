@@ -1,18 +1,36 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+} from 'react-router-dom';
+import GamePage from './pages/games/common/GamePage';
+import Menu from './shared/Menu';
+import {
+  Game as AudioChallenge,
+  description as DataAudioChallenge,
+} from './pages/games/audioChallenge';
 import Sprint from './games/Sprint/Sprint';
 import { sprintData } from './helpers/gamesData';
-import GamePage from './pages/games/common/GamePage';
+import styles from './stylesApp.module.css';
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Route path="/games/sprint">
-          <GamePage dataGame={sprintData} Game={Sprint} />
-        </Route>
-      </BrowserRouter>
-    </div>
+    <Router>
+      <div className={styles.root}>
+        <Route path="/" component={Menu} />
+        <div className={styles.content}>
+          <Switch>
+            <Route exact path="/games/audioChallenge">
+              <GamePage Game={AudioChallenge} dataGame={DataAudioChallenge} />
+            </Route>
+            <Route path="/games/sprint">
+              <GamePage dataGame={sprintData} Game={Sprint} />
+            </Route>
+          </Switch>
+        </div>
+      </div>
+    </Router>
   );
 }
 
