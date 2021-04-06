@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import s from './Sprint.module.scss';
-import Check from '../../assets/Check.png';
-import BackTo from '../../assets/BackTo.png';
-import Error from '../../assets/Error.mp3';
-import Correct from '../../assets/Correct.mp3';
-import { IWord } from '../../interfaces/IWord';
-import { IAnswersGame } from '../../pages/games/common/GamePage';
-import ToggleFullScreen from '../../pages/games/common/ToggleFullScreen';
+import Check from '../../../assets/Check.png';
+import BackTo from '../../../assets/BackTo.png';
+import Error from '../../../assets/Error.mp3';
+import Correct from '../../../assets/Correct.mp3';
+import { IWord } from '../../../interfaces/IWord';
+import { IAnswersGame } from '../common/GamePage';
+import ToggleFullScreen from '../common/ToggleFullScreen';
 
 interface IProps {
     words: IWord[];

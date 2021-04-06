@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import AboutTeam from './Components/AboutTeam/AboutTeam';
-import Sprint from './games/Sprint/Sprint';
+import AboutTeam from './shared/AboutTeam/AboutTeam';
+import Sprint from './pages/games/Sprint/Sprint';
 import { sprintData } from './helpers/gamesData';
 import GamePage from './pages/games/common/GamePage';
 
