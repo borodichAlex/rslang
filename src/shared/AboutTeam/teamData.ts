@@ -28,7 +28,7 @@ const teamData: any = [
         nickName: 'StanislavNarckevich',
         gitLink: 'https://github.com/StanislavNarckevich',
         photo: 'https://avatars.githubusercontent.com/u/54161181?v=4',
-        contribution: ['Создание и оформление игры Своя Игра'],
+        contribution: ['Создание и оформление игры Конструктор Слов'],
         teamLead: false,
     },
 
