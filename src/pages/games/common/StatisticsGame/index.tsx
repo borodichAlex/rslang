@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import { IWordsStatistics, urlBaseDataWords } from '../GamePage';
 import { IWord } from '../../../../interfaces/IWord';
-import './statistic.css';
 
 type IProps = {
   answers: IWordsStatistics;
