@@ -17,10 +17,18 @@
   border-radius: 35px;
 }
 
+.team_lead {
+  background: linear-gradient(
+    to right bottom,
+    #dadaef 50%,
+    #11e0eb4a
+  );
+}
+
 .avatar {
   width: 150px;
   height: 150px;
-
+color: #dadaefa8;
   border-radius: 50%;
 }
 
@@ -49,4 +57,13 @@
 
 .footer > a > img {
     width: 32px;
+}
+
+.contributionList {
+  height: 64.5px;
+  overflow-y: scroll;
+}
+
+.contributionList > li {
+  width: 325px;
 }

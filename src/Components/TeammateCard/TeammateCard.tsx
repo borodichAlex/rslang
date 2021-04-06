@@ -12,7 +12,7 @@ const TeammateCard = ({ data }: ITeammateCard) => {
         console.log('Ok');
     }, []);
     return (
-        <div className={s.root}>
+        <div className={`${s.root} ${data.teamLead ? s.team_lead : ''}`}>
             <div className={s.avatar}>
                 <img src={data.photo} alt={`${data.nickName}'s avatar`} />
             </div>
@@ -25,7 +25,7 @@ const TeammateCard = ({ data }: ITeammateCard) => {
                 </span>
             </div>
 
-            <ul>
+            <ul className={s.contributionList}>
                 {data.contribution.map((item) => (
                     <li>{item}</li>
                 ))}
