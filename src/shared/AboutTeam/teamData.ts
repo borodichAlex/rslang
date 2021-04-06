@@ -1,7 +1,4 @@
-import React from 'react';
-import s from './Footer.module.scss';
-
-const teamData: any = [
+const teamData: ITeamData[] = [
     {
         name: 'Alexandr Borodich',
         nickName: 'BorodichAlex',
@@ -31,30 +28,19 @@ const teamData: any = [
         nickName: 'StanislavNarckevich',
         gitLink: 'https://github.com/StanislavNarckevich',
         photo: 'https://avatars.githubusercontent.com/u/54161181?v=4',
-        contribution: ['Создание и оформление игры Своя Игра'],
+        contribution: ['Создание и оформление игры Конструктор Слов'],
         teamLead: false,
     },
 
 ];
 
-// уберу после мёржа AboutTeam to develop
-
-function Footer() {
-    return (
-        <div className={s.root}>
-            Footer
-            <ul className={s.members}>
-                {
-                    teamData.map((member: any) => (
-                        <li>
-                            <img src="link" alt="" />
-                            <a href={member.gitLink} target="blank">{ member.nickName }</a>
-                        </li>
-                    ))
-                }
-            </ul>
-        </div>
-    );
+export interface ITeamData {
+    name: string
+    nickName: string
+    gitLink: string
+    photo: string
+    contribution: string[]
+    teamLead: boolean
 }
 
-export default Footer;
+export default teamData;

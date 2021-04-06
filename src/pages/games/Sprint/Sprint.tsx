@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import playSound from '../../utils/playSound';
 import s from './Sprint.module.scss';
-import Check from '../../assets/Check.png';
-import BackTo from '../../assets/BackTo.png';
-import Error from '../../assets/Error.mp3';
-import Correct from '../../assets/Correct.mp3';
-import { IWord } from '../../interfaces/IWord';
-import { IAnswersGame } from '../../pages/games/common/GamePage';
-import ToggleFullScreen from '../../pages/games/common/ToggleFullScreen';
+import Check from '../../../assets/Check.png';
+import BackTo from '../../../assets/BackTo.png';
+import Error from '../../../assets/Error.mp3';
+import Correct from '../../../assets/Correct.mp3';
+import { IWord } from '../../../interfaces/IWord';
+import { IAnswersGame } from '../common/GamePage';
+import ToggleFullScreen from '../common/ToggleFullScreen';
 
 interface IProps {
     words: IWord[];
@@ -72,7 +71,7 @@ const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
     const handleStartGame = () => {
         handleSetTask();
         setContainerClass('container');
-        setCountDown(5);
+        setCountDown(60);
         setColor('rgb(255, 255, 255, 0.0)');
         setScore(0);
         setFactor(1);
@@ -86,7 +85,7 @@ const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
         setColor('rgb(255, 255, 255, 0.0)');
         setStreak(0);
         setFactor(1);
-        playSound(Error);
+        handlePlaySound(Error);
         const newArr = lastWord;
         newArr.unshift(<div>Неверно: {word} переводится как {correctTransl}</div>);
         setLastWord(newArr);
@@ -99,7 +98,7 @@ const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
         setContainerClass('containerG');
         setTimeout(() => setContainerClass('container'), 500);
         setScore((prewScore) => prewScore + 10 * factor);
-        playSound(Correct);
+        handlePlaySound(Correct);
         if (streak < 3) {
             setStreak(streak + 1);
         } else if (factor < 7) {
@@ -174,6 +173,17 @@ const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
             index = handleGetIncorrectTranslation(currIndex);
         }
         return index;
+    };
+
+    const handlePlaySound = (path: string) => {
+        const audio = document.createElement('audio');
+        audio.style.display = 'none';
+        audio.src = path;
+        audio.autoplay = true;
+        audio.onended = function () {
+          audio.remove();
+        };
+        document.body.appendChild(audio);
     };
 
     const streakRender = () => {
