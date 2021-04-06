@@ -72,7 +72,7 @@ const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
     const handleStartGame = () => {
         handleSetTask();
         setContainerClass('container');
-        setCountDown(60);
+        setCountDown(5);
         setColor('rgb(255, 255, 255, 0.0)');
         setScore(0);
         setFactor(1);
