@@ -1,4 +1,4 @@
-const teamData: any = [
+const teamData: ITeamData[] = [
     {
         name: 'Alexandr Borodich',
         nickName: 'BorodichAlex',
@@ -33,5 +33,14 @@ const teamData: any = [
     },
 
 ];
+
+export interface ITeamData {
+    name: string
+    nickName: string
+    gitLink: string
+    photo: string
+    contribution: string[]
+    teamLead: boolean
+}
 
 export default teamData;

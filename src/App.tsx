@@ -13,6 +13,7 @@ import {
 import Sprint from './pages/games/Sprint/Sprint';
 import { sprintData } from './helpers/gamesData';
 import styles from './stylesApp.module.css';
+import Footer from './shared/Footer/Footer';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
               <GamePage dataGame={sprintData} Game={Sprint} />
             </Route>
           </Switch>
+          <Footer />
         </div>
       </div>
     </Router>
