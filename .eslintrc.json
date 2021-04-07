@@ -37,11 +37,6 @@
         "react/jsx-indent": "off",
         "react/jsx-indent-props": "off",
         "no-plusplus": "off",
-<<<<<<< HEAD
-        "react/jsx-wrap-multilines": "off",
-        "react/no-array-index-key": "off",
-=======
->>>>>>> develop
         "react/jsx-one-expression-per-line": "off",
         // note you must disable the base rule as it can report incorrect errors
         "no-use-before-define": "off",
