@@ -1,6 +1,5 @@
 /* eslint-disable react/no-danger */
 import React, { useEffect, useState } from 'react';
-import { IWordObject } from '../../interfaces';
 import getData from '../../utils/getData';
 import s from './WordList.module.scss';
 import Sound from '../../assets/Sound.png';
@@ -8,13 +7,14 @@ import Star from '../../assets/Star.png';
 import ActiveStar from '../../assets/ActiveStar.png';
 import Basket from '../../assets/Basket.png';
 import { urlBaseDataWords } from '../../pages/games/common/GamePage';
+import { IWord } from '../../interfaces/IWord';
 
 type TGroup = 0 | 1 | 2 | 3 | 4 | 5;
 
 const WordList = () => {
     const [group, setGroup] = useState<TGroup>(0);
     const [page, setPage] = useState(0);
-    const [data, setData] = useState<IWordObject[] | []>([]);
+    const [data, setData] = useState<IWord[] | []>([]);
 
     useEffect(() => {
         getData(`https://react-learnwords-example.herokuapp.com/words?group=${group}&page=${page}`)
@@ -51,7 +51,7 @@ const WordList = () => {
         <div className={s.root}>
             <div className={s.page}>
                 {
-                    data?.map((item: IWordObject, index: number) => (
+                    data?.map((item: IWord, index: number) => (
                     <div className={s.wordBlock} key={`${index}${item.word}list`}>
                         <button
                             type="button"
