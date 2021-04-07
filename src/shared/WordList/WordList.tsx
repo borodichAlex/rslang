@@ -52,7 +52,7 @@ const WordList = () => {
             <div className={s.page}>
                 {
                     data?.map((item: IWord, index: number) => (
-                    <div className={s.wordBlock} key={`${index}${item.word}list`}>
+                    <div className={s.wordBlock} key={`${item.id}list`}>
                         <button
                             type="button"
                             className={s.star_button}
@@ -101,7 +101,8 @@ const WordList = () => {
                         </div>
                         <br />
                         <div style={{ marginLeft: '15px' }}>{item.textExampleTranslate}</div>
-                    </div>))
+                    </div>
+))
                 }
             </div>
         </div>
