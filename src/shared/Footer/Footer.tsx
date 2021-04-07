@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import teamData from '../AboutTeam/teamData';
 import s from './Footer.module.scss';
-import TopArrow from '../../assets/TopArrow.png';
 import RsSchool from '../../assets/RsSchool.svg';
 
 function Footer() {
