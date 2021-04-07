@@ -2,7 +2,6 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
 } from 'react-router-dom';
 import GamePage from './pages/games/common/GamePage';
 import Menu from './shared/Menu';
@@ -21,14 +20,12 @@ function App() {
       <div className={styles.root}>
         <Menu />
         <div className={styles.content}>
-          <Switch>
-            <Route exact path="/games/audioChallenge">
-              <GamePage Game={AudioChallenge} dataGame={DataAudioChallenge} />
-            </Route>
-            <Route path="/games/sprint">
-              <GamePage dataGame={sprintData} Game={Sprint} />
-            </Route>
-          </Switch>
+          <Route exact path="/games/audioChallenge">
+            <GamePage Game={AudioChallenge} dataGame={DataAudioChallenge} />
+          </Route>
+          <Route path="/games/sprint">
+            <GamePage dataGame={sprintData} Game={Sprint} />
+          </Route>
           <Footer />
         </div>
       </div>
