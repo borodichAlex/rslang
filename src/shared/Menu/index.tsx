@@ -82,7 +82,7 @@ function Menu() {
         </div>
         <ul className={styles.list}>
           {
-            links.map(({title, path}) => (
+            links.map(({ title, path }) => (
               <li key={title} className={styles.item}>
                 <Link
                   className={styles.link}
@@ -98,7 +98,7 @@ function Menu() {
           {isAuthUser && (
             <>
               {
-                authLinks.map(({title, path}) => (
+                authLinks.map(({ title, path }) => (
                   <li key={title} className={styles.item}>
                     <Link
                       className={styles.link}

@@ -5,15 +5,20 @@
   flex-direction: column;
 
   height: 100vh;
+
+  position: relative;
 }
 
 .score {
-  margin-bottom: 15px;
+  position: absolute;
+  top: -35px;
+  left: 0;
   color: #2c3636;
   font-size: 24px;
 }
 
 .container {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -101,17 +106,16 @@
 
 .timer {
   position: absolute;
-  right: -55px;
-  top: 0px;
+  right: 0px;
+  top: -35px;
+
+  color: #2c3636;
 
   font-size: 24px;
   text-align: center;
 
   height: 36px;
   width: 36px;
-
-  border: 2px solid rgba(204, 191, 191, 0.455);
-  border-radius: 50%;
 }
 
 .word {
@@ -180,16 +184,13 @@
 .toggleFullScreen {
     position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
 }
 
 .exit {
-    position: absolute;
+    position: absolute !important;
     top: 5px;
-    left: 0;
-
-    border: none;
-    background: none;
+    right: 0;
 }
 
 .exit > img {
