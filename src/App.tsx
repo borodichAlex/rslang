@@ -12,7 +12,8 @@ import {
   description as DataAudioChallenge,
 } from './pages/games/audioChallenge';
 import Sprint from './pages/games/Sprint/Sprint';
-import { sprintData } from './helpers/gamesData';
+import { sprintData, wordConstructorData } from './helpers/gamesData';
+import WordConstructor from './pages/games/wordConstructor';
 import Footer from './shared/Footer/Footer';
 import Auth from './pages/Auth';
 import styles from './stylesApp.module.css';
@@ -37,6 +38,9 @@ const App: FC = () => {
           </Route>
           <Route path="/games/sprint">
             <GamePage dataGame={sprintData} Game={Sprint} />
+          </Route>
+          <Route path="/games/wordConstructor">
+            <GamePage dataGame={wordConstructorData} Game={WordConstructor} />
           </Route>
           {
             !isAuthUser ? (

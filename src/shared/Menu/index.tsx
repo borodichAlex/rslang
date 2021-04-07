@@ -2,12 +2,12 @@ import React, { useState, FC, useEffect } from 'react';
 import {
   Link, IconButton, Typography, Button, ButtonGroup,
 } from '@material-ui/core';
-import { Menu as MenuIcon, Close as CloseIcon } from '@material-ui/icons';
 import {
   Link as RouterLink,
   useLocation,
   useHistory,
 } from 'react-router-dom';
+import { Menu as MenuIcon, Close as CloseIcon } from '@material-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogOut } from '../../redux/user/actions';
 import { RootState } from '../../redux/store';
@@ -29,6 +29,10 @@ const links = [
   {
     path: '/games/audioChallenge',
     title: 'Аудио вызов',
+  },
+  {
+    path: '/games/wordConstructor',
+    title: 'Конструктор слов',
   },
 ];
 
@@ -120,7 +124,6 @@ const Menu: FC = () => {
       </IconButton>
       <div className={styles.backdrop} id="backdropMenu" />
       <div className={styles.body}>
-
         <div className={styles.wrapHeadingMenu}>
           <Link
             underline="none"
@@ -168,20 +171,23 @@ const Menu: FC = () => {
           }
           {isAuthUser && (
             <>
-              {
-                authLinks.map(({ title, path }) => (
-                  <li key={title} className={styles.item}>
-                    <Link
-                      className={styles.link}
-                      underline="none"
-                      component={RouterLink}
-                      to={{ pathname: path, state: { prevPath: '/menu' } }}
-                    >
-                      {title}
-                    </Link>
-                  </li>
-                ))
-              }
+              {authLinks.map(({ title, path }) => (
+                <li key={title} className={styles.item}>
+                  <Link
+                    className={styles.link}
+                    underline="none"
+                    component={RouterLink}
+                    to={{
+                      pathname: path,
+                      state: {
+                        prevPath: '/menu',
+                      },
+                    }}
+                  >
+                    {title}
+                  </Link>
+                </li>
+              ))}
               <li className={styles.item}>
                 <Link
                   onClick={() => {
@@ -203,7 +209,6 @@ const Menu: FC = () => {
           )}
         </ul>
       </div>
-
     </div>
   );
 };
