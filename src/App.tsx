@@ -1,13 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-import WordList from './components/WordList/WordList';
-
-function App() {
-  return (
-    <div className="App">
-      <WordList />
-    </div>
-=======
 import {
   BrowserRouter as Router,
   Route,
@@ -40,7 +31,6 @@ function App() {
         </div>
       </div>
     </Router>
->>>>>>> develop
   );
 }
 
