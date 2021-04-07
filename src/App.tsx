@@ -20,8 +20,9 @@ function App() {
   return (
     <Router>
       <div className={styles.root}>
-        <Route path="/" component={Menu} />
-        <Route path="/" component={Footer} />
+        {/* <Route path="/" component={Menu} /> */}
+        {/* <Route path="/" component={Footer} /> */}
+        <Menu />
         <div className={styles.content}>
           <Switch>
             <Route exact path="/games/audioChallenge">
@@ -31,6 +32,7 @@ function App() {
               <GamePage dataGame={sprintData} Game={Sprint} />
             </Route>
           </Switch>
+          <Footer />
         </div>
       </div>
     </Router>
