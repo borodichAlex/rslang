@@ -20,8 +20,6 @@ function App() {
   return (
     <Router>
       <div className={styles.root}>
-        {/* <Route path="/" component={Menu} /> */}
-        {/* <Route path="/" component={Footer} /> */}
         <Menu />
         <div className={styles.content}>
           <Switch>
