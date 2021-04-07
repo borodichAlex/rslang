@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { IconButton } from '@material-ui/core';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import s from './Sprint.module.scss';
 import Check from '../../../assets/Check.png';
-import BackTo from '../../../assets/BackTo.png';
 import Error from '../../../assets/Error.mp3';
 import Correct from '../../../assets/Correct.mp3';
 import { IWord } from '../../../interfaces/IWord';
@@ -181,7 +182,7 @@ const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
         audio.src = path;
         audio.autoplay = true;
         audio.onended = function () {
-          audio.remove();
+            audio.remove();
         };
         document.body.appendChild(audio);
     };
@@ -200,17 +201,17 @@ const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
                 <ToggleFullScreen />
             </div>
 
-            <button
-                type="button"
-                onClick={() => onSetPage('MENU_PAGE')}
+            <IconButton
                 className={s.exit}
+                aria-label="exit"
+                onClick={() => onSetPage('MENU_PAGE')}
             >
-                <img src={BackTo} alt="Back" />
-            </button>
-            <div className={s.score}>
-                {score}
-            </div>
+                <HighlightOffIcon fontSize="large" />
+            </IconButton>
             <div className={s[containerClass]}>
+                <div className={s.score}>
+                    Score: {score}
+                </div>
                 <div className={s.header} style={{ backgroundColor: color }}>
                     <div className={s.streak}>
                         {streakRender()}

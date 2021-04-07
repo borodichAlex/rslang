@@ -11,7 +11,7 @@ import {
   Game as AudioChallenge,
   description as DataAudioChallenge,
 } from './pages/games/audioChallenge';
-import Sprint from './games/Sprint/Sprint';
+import Sprint from './pages/games/Sprint/Sprint';
 import { sprintData } from './helpers/gamesData';
 import styles from './stylesApp.module.css';
 
@@ -19,7 +19,7 @@ function App() {
   return (
     <Router>
       <div className={styles.root}>
-        <Route path="/" component={Menu} />
+        <Menu />
         <div className={styles.content}>
           <Switch>
             <Route exact path="/games/audioChallenge">
