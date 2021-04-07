@@ -18,7 +18,7 @@ function App() {
   return (
     <Router>
       <div className={styles.root}>
-        <Route path="/" component={Menu} />
+        <Menu />
         <div className={styles.content}>
           <Switch>
             <Route exact path="/games/audioChallenge">
