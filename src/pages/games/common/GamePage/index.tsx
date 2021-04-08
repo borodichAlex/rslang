@@ -86,7 +86,7 @@ const GamePage: FC<IProps> = ({ Game, dataGame }: IProps) => {
         onSetComplexity={handleSetComplexity}
       />
       )}
-      {(page === 'GAME_PAGE') && <Game words={words} onSetPage={handleSetPage} onSetAnswers={handleSetAnswers} />}
+      {(page === 'GAME_PAGE') && <Game words={words.slice(0, 20)} onSetPage={handleSetPage} onSetAnswers={handleSetAnswers} />}
       {(page === 'STATISTICS_PAGE') && <StatisticsGame onSetPage={handleSetPage} answers={answers} />}
     </div>
   );
