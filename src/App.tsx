@@ -1,7 +1,9 @@
 import React from 'react';
+
 import {
   BrowserRouter as Router,
   Route,
+  Switch,
 } from 'react-router-dom';
 import GamePage from './pages/games/common/GamePage';
 import Menu from './shared/Menu';
@@ -13,6 +15,7 @@ import Sprint from './pages/games/Sprint/Sprint';
 import { sprintData } from './helpers/gamesData';
 import styles from './stylesApp.module.css';
 import Footer from './shared/Footer/Footer';
+import TextBook from './pages/TextBook/TextBook';
 
 function App() {
   return (
@@ -20,12 +23,15 @@ function App() {
       <div className={styles.root}>
         <Menu />
         <div className={styles.content}>
-          <Route exact path="/games/audioChallenge">
-            <GamePage Game={AudioChallenge} dataGame={DataAudioChallenge} />
-          </Route>
-          <Route path="/games/sprint">
-            <GamePage dataGame={sprintData} Game={Sprint} />
-          </Route>
+            <Route exact path="/games/audioChallenge">
+              <GamePage Game={AudioChallenge} dataGame={DataAudioChallenge} />
+            </Route>
+            <Route path="/games/sprint">
+              <GamePage dataGame={sprintData} Game={Sprint} />
+            </Route>
+            <Route path="/textbook/:page">
+              <TextBook />
+            </Route>
           <Footer />
         </div>
       </div>

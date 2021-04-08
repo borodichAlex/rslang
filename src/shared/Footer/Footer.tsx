@@ -18,7 +18,7 @@ function Footer() {
                     <ul className={s.members}>
                         {
                             teamData.map((member) => (
-                                <li>
+                                <li key={`${member.name}footerlink`}>
                                     <a href={member.gitLink} target="blank">{member.nickName}</a>
                                 </li>
                             ))
