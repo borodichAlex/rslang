@@ -3,6 +3,10 @@ import './WordConstructor.module.scss';
 import errorSound from '../../../assets/Error.mp3';
 import successSound from '../../../assets/Correct.mp3';
 import { IGame, IWord } from './interfaces';
+import { Button, Paper, Typography } from '@material-ui/core';
+
+import s from './WordConstructor.module.scss';
+import Timer from './timer';
 
 const playSound = (path: string) => {
   const audio = document.createElement('audio');
@@ -81,7 +85,7 @@ const Game = ({
 }: IGame) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const currentWord: IWord = words[currentIndex];
-  const [timer, setTimer] = useState(60);
+  // const [timer, setTimer] = useState(60);
   const [isGameOver, setIsGameOver] = useState(false);
 
   const [state, dispatch] = useReducer(reducer, currentWord, init);
@@ -96,20 +100,20 @@ const Game = ({
     }
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (timer >= 1) {
-        setTimer(timer - 1);
-      } else {
-        clearInterval(interval);
-        setTimeout(() => setIsGameOver(true), 500);
-      }
-    }, 1000);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     if (timer >= 1) {
+  //       setTimer(timer - 1);
+  //     } else {
+  //       clearInterval(interval);
+  //       setTimeout(() => setIsGameOver(true), 500);
+  //     }
+  //   }, 1000);
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [timer]);
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }, [timer]);
 
   const checkAnswer = () => {
     const check = state.answer.map((i) => i.value).join('');
@@ -148,47 +152,61 @@ const Game = ({
       {!isGameOver ? (
         <>
           <div className="translate">
-            <span>{currentWord.wordTranslate}</span>
+            <Typography>{currentWord.wordTranslate}</Typography>
           </div>
 
-          <ul>
+          <div>
             {state.answer.map((item, index) => {
               const key = index;
-              const li = (
-                <li className="cell" key={key * Math.random()}>
+              const cell = (
+                <Paper
+                  elevation={4}
+                  color="primary"
+                  key={key * Math.random()}
+                  // className={s.cell}
+                >
                   {item.value}
-                </li>
+                </Paper>
               );
-              return li;
+              return cell;
             })}
-          </ul>
+          </div>
 
-          <ul>
+          <div>
             {state.currentLetters.map((item, index) => {
               const key = index;
-              const li = (
-                <li
-                  className="letter"
+              const letter = (
+                <Button
+                  // className={s.letter}
+                  color={'primary'}
+                  variant="contained"
                   onClick={() =>
                     dispatch({ type: 'ADD_LETTER', payload: item })
                   }
                   key={key * Math.random()}
                 >
                   {item.value}
-                </li>
+                </Button>
               );
-              return li;
+              return letter;
             })}
-          </ul>
+          </div>
 
-          <button onClick={reset}>Reset</button>
-          <span>{timer}</span>
-          <button onClick={checkAnswer}>Check Answer</button>
+          <Button color={'primary'} variant="contained" onClick={reset}>
+            Сбросить
+          </Button>
+          {/* <span>{timer}</span> */}
+          <Timer />
+          <Button color="primary" onClick={checkAnswer}>
+            Check Answer
+          </Button>
         </>
       ) : (
         <div className="game_over">
-          <span> GAME OVER</span>
-          <button onClick={backToMenu}>Back to menu</button>
+          <Typography> Игра окончена</Typography>
+          <Button onClick={backToMenu} variant="contained" color="secondary">
+            Вернуться в меню
+          </Button>
         </div>
       )}
     </>
