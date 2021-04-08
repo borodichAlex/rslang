@@ -9,7 +9,7 @@
 
   z-index: 10;
 
-  max-width: 270px;
+  max-width: 290px;
 
   box-shadow: 3px 0px 6px 0px rgba(67, 67, 67, 0.46);
 
@@ -19,7 +19,7 @@
 @media screen and (max-width: 968px) {
   .body {
     transform: translateX(-100%);
-    max-width: 330px;
+    max-width: 340px;
   }
 }
 

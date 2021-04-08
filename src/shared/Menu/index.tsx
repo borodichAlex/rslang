@@ -1,6 +1,6 @@
-import React, { useState, FC } from 'react';
+import React, { useState, FC, useEffect } from 'react';
 import {
-  Link, IconButton, Typography, Button,
+  Link, IconButton, Typography, Button, ButtonGroup,
 } from '@material-ui/core';
 import { Menu as MenuIcon, Close as CloseIcon } from '@material-ui/icons';
 import {
@@ -51,32 +51,58 @@ const Menu: FC = () => {
     }
     setIsOpenMenu((is) => !is);
   };
-  const handleToggleAuthUser = () => {
-    setIsAuthUser((is) => !is);
-  };
+
+  useEffect(() => {
+    const handleClick = (e: any) => {
+      const element = e.target;
+
+      if (element.id === 'backdropMenu') {
+        handleToggleMenu();
+      }
+    };
+
+    document.addEventListener('click', handleClick);
+
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  });
 
   return (
     <div className={`${styles.menu} ${isOpenMenu && styles.menuShow}`}>
       <IconButton className={styles.iconMenu} aria-label="toggle menu" onClick={handleToggleMenu}>
         {isOpenMenu ? <CloseIcon /> : <MenuIcon />}
       </IconButton>
-      <div className={styles.backdrop} />
+      <div className={styles.backdrop} id="backdropMenu" />
       <div className={styles.body}>
 
         <div className={styles.wrapHeadingMenu}>
-          <Typography className={styles.logo} variant="h4" component="h1" color="initial">RS Lang</Typography>
+          <Link
+            underline="none"
+            component={RouterLink}
+            to={{ pathname: '/', state: { prevPath: '/menu' } }}
+          >
+            <Typography className={styles.logo} variant="h4" component="h1" color="initial">RS Lang</Typography>
+          </Link>
           {
             isAuthUser ? <Avatar urlImg={imgUser} />
             : (
-                <Button variant="outlined" onClick={handleToggleAuthUser}>
-                  <Link
-                    className={styles.login}
-                    underline="none"
-                    component={RouterLink}
-                    to={{ pathname: '/login', state: { prevPath: '/menu' } }}
-                  />
+              <ButtonGroup variant="outlined" aria-label="auth">
+                <Button
+                  style={{whiteSpace: 'nowrap'}}
+                  component={RouterLink}
+                  to={{ pathname: '/login' }}
+                >
                   Log In
                 </Button>
+                <Button
+                  style={{whiteSpace: 'nowrap'}}
+                  component={RouterLink}
+                  to={{ pathname: '/registration' }}
+                >
+                  Sign up
+                </Button>
+              </ButtonGroup>
               )
           }
         </div>
@@ -113,13 +139,13 @@ const Menu: FC = () => {
               }
               <li className={styles.item}>
                 <Link
-                  onClick={handleToggleAuthUser}
+                  // onClick={handleToggleAuthUser}
                   className={styles.link}
                   underline="none"
                   component={RouterLink}
                   to={{ state: { prevPath: '/menu' } }}
                 >
-                  Log out
+                  Выйти
                 </Link>
               </li>
             </>
