@@ -1,6 +1,6 @@
 interface IGame {
   words: IWord[];
-  backToMenu: () => void;
+  // backToMenu: () => void;
   handleCorrectAnswer: (id: string) => void;
   handleWrongAnswer: (id: string) => void;
 }
@@ -22,8 +22,8 @@ interface IWord {
   wordTranslate: string;
 }
 
-interface IWords {
-  data: IWord[];
-}
+// interface IWords {
+//   data: IWord[];
+// }
 
-export type { IGame, IWords, IWord };
+export type { IGame, IWord };

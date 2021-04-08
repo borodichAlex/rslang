@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
-import { Link, IconButton, Typography, Button } from '@material-ui/core';
-import { Menu as MenuIcon, Close as CloseIcon } from '@material-ui/icons';
+import {
+  Link,
+  IconButton,
+  Typography,
+  Button,
+} from '@material-ui/core';
+import {
+  Menu as MenuIcon,
+  Close as CloseIcon,
+} from '@material-ui/icons';
 import { Link as RouterLink } from 'react-router-dom';
 import imgUser from './logo192.png';
 
@@ -56,7 +64,11 @@ function Menu() {
   };
 
   return (
-    <div className={`${styles.menu} ${isOpenMenu && styles.menuShow}`}>
+    <div
+      className={`${styles.menu} ${
+        isOpenMenu && styles.menuShow
+      }`}
+    >
       <IconButton
         className={styles.iconMenu}
         aria-label="toggle menu"
@@ -78,12 +90,20 @@ function Menu() {
           {isAuthUser ? (
             <Avatar urlImg={imgUser} />
           ) : (
-            <Button variant="outlined" onClick={handleToggleAuthUser}>
+            <Button
+              variant="outlined"
+              onClick={handleToggleAuthUser}
+            >
               <Link
                 className={styles.login}
                 underline="none"
                 component={RouterLink}
-                to={{ pathname: '/login', state: { prevPath: '/menu' } }}
+                to={{
+                  pathname: '/login',
+                  state: {
+                    prevPath: '/menu',
+                  },
+                }}
               />
               Log In
             </Button>
@@ -96,7 +116,12 @@ function Menu() {
                 className={styles.link}
                 underline="none"
                 component={RouterLink}
-                to={{ pathname: path, state: { prevPath: '/menu' } }}
+                to={{
+                  pathname: path,
+                  state: {
+                    prevPath: '/menu',
+                  },
+                }}
               >
                 {title}
               </Link>
@@ -110,7 +135,12 @@ function Menu() {
                     className={styles.link}
                     underline="none"
                     component={RouterLink}
-                    to={{ pathname: path, state: { prevPath: '/menu' } }}
+                    to={{
+                      pathname: path,
+                      state: {
+                        prevPath: '/menu',
+                      },
+                    }}
                   >
                     {title}
                   </Link>
@@ -122,7 +152,11 @@ function Menu() {
                   className={styles.link}
                   underline="none"
                   component={RouterLink}
-                  to={{ state: { prevPath: '/menu' } }}
+                  to={{
+                    state: {
+                      prevPath: '/menu',
+                    },
+                  }}
                 >
                   Log out
                 </Link>

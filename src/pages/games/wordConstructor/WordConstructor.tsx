@@ -1,9 +1,9 @@
 import React, { useEffect, useReducer, useState } from 'react';
-import './WordConstructor.module.scss';
+// import './WordConstructor.module.scss';
+import { Button, Paper, Typography } from '@material-ui/core';
+import { IGame, IWord } from './interfaces';
 import errorSound from '../../../assets/Error.mp3';
 import successSound from '../../../assets/Correct.mp3';
-import { IGame, IWord } from './interfaces';
-import { Button, Paper, Typography } from '@material-ui/core';
 
 import s from './WordConstructor.module.scss';
 import Timer from './timer';
@@ -52,7 +52,10 @@ function init(curWord: IWord) {
 
 function reducer(
   state: State,
-  action: { type: string; payload: { value: string } | IWord }
+  action: {
+    type: string;
+    payload: { value: string } | IWord;
+  },
 ): State {
   switch (action.type) {
     case 'ADD_LETTER': {
@@ -79,7 +82,7 @@ function reducer(
 
 const Game = ({
   words,
-  backToMenu,
+  // backToMenu,
   handleCorrectAnswer,
   handleWrongAnswer,
 }: IGame) => {
@@ -92,7 +95,7 @@ const Game = ({
 
   const handleKey = (event: KeyboardEvent) => {
     const key = state.currentLetters.find(
-      (item) => item.value === event.code[event.code.length - 1].toLowerCase()
+      (item) => item.value === event.code[event.code.length - 1].toLowerCase(),
     );
 
     if (key) {
@@ -125,7 +128,7 @@ const Game = ({
       handleWrongAnswer(currentWord.id);
     }
     if (currentIndex < words.length - 1) {
-      nextWord();
+      setTimeout(nextWord, 600);
     } else setIsGameOver(true);
   };
 
@@ -178,11 +181,9 @@ const Game = ({
               const letter = (
                 <Button
                   // className={s.letter}
-                  color={'primary'}
+                  color="primary"
                   variant="contained"
-                  onClick={() =>
-                    dispatch({ type: 'ADD_LETTER', payload: item })
-                  }
+                  onClick={() => dispatch({ type: 'ADD_LETTER', payload: item })}
                   key={key * Math.random()}
                 >
                   {item.value}
@@ -192,21 +193,21 @@ const Game = ({
             })}
           </div>
 
-          <Button color={'primary'} variant="contained" onClick={reset}>
+          <Button color="primary" variant="contained" onClick={reset}>
             Сбросить
           </Button>
           {/* <span>{timer}</span> */}
           <Timer />
-          <Button color="primary" onClick={checkAnswer}>
-            Check Answer
+          <Button color="secondary" variant="contained" onClick={checkAnswer}>
+            Проверить
           </Button>
         </>
       ) : (
         <div className="game_over">
           <Typography> Игра окончена</Typography>
-          <Button onClick={backToMenu} variant="contained" color="secondary">
+          {/* <Button onClick={backToMenu} variant="contained" color="secondary">
             Вернуться в меню
-          </Button>
+          </Button> */}
         </div>
       )}
     </>
