@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import { IconButton } from '@material-ui/core';
 import { urlBaseDataWords } from '../../../common/GamePage';
@@ -11,7 +11,7 @@ type IProps = {
   onPlayAudio: () => void;
 };
 
-const RightWord = ({
+const RightWord: FC<IProps> = ({
   word,
   imageUrl,
   isSelectedAnswer,

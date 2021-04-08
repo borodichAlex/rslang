@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Typography, Button, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ListDifficultyLevel from './ListDifficultyLevel/ListDifficultyLevel';
@@ -49,7 +49,7 @@ const useStyles = makeStyles({
   },
 });
 
-const PreviewGame = (props: IProps) => {
+const PreviewGame: FC<IProps> = (props: IProps) => {
   const {
     dataGame: {
       name, goal, description,

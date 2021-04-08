@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import styles from './styles.module.css';
 
-function ToggleFullScreen() {
+const ToggleFullScreen: FC = () => {
   const [isFull, setIsFull] = useState(false);
 
   const handleToggleFullScreen = () => {
@@ -37,6 +37,6 @@ function ToggleFullScreen() {
       {isFull ? <FullscreenExitIcon /> : <FullscreenIcon />}
     </IconButton>
   );
-}
+};
 
 export default ToggleFullScreen;

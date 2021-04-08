@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {
   Typography, List, ListItem, ListItemIcon, ListItemText, Button,
 } from '@material-ui/core';
@@ -6,11 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import { IWordsStatistics, urlBaseDataWords } from '../GamePage';
 import { IWord } from '../../../../interfaces/IWord';
-
-type IProps = {
-  answers: IWordsStatistics;
-  onSetPage: (page: string) => void;
-}
 
 type IFnPlayAudio = (url: string) => void;
 
@@ -132,7 +127,12 @@ const ListWords = ({
   );
 };
 
-const StatisticsGame = ({ answers, onSetPage }: IProps) => {
+type IProps = {
+  answers: IWordsStatistics;
+  onSetPage: (page: string) => void;
+}
+
+const StatisticsGame: FC<IProps> = ({ answers, onSetPage }: IProps) => {
   const audioNode = new Audio();
 
   const handlePlayAudio: IFnPlayAudio = (audioUrl) => {

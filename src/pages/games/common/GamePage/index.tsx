@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getNumbersWords } from '../../../../helpers/getWords';
 import PreviewGame from '../PreviewGame/PreviewGame';
@@ -11,8 +11,14 @@ export const urlBaseDataWords = 'https://raw.githubusercontent.com/borodichalex/
 
 const initialPage = 'MENU_PAGE';
 
+type IPropsGame = {
+  words: IWord[];
+  onSetPage: (page: string) => void;
+  onSetAnswers: (answers: IAnswersGame) => void;
+}
+
 type IProps = {
-  Game: React.ComponentType<any>;
+  Game: React.ComponentType<IPropsGame>;
   dataGame: IDataGame;
 }
 
@@ -26,7 +32,7 @@ export type IAnswersGame = {
   listCorrect: string[];
 }
 
-function GamePage({ Game, dataGame }: IProps) {
+const GamePage: FC<IProps> = ({ Game, dataGame }: IProps) => {
   const [page, setPage] = useState(initialPage);
 
   const [words, setWords] = useState<IWord[]>([]);
@@ -84,6 +90,6 @@ function GamePage({ Game, dataGame }: IProps) {
       {(page === 'STATISTICS_PAGE') && <StatisticsGame onSetPage={handleSetPage} answers={answers} />}
     </div>
   );
-}
+};
 
 export default GamePage;

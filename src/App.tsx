@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -14,23 +14,21 @@ import { sprintData } from './helpers/gamesData';
 import styles from './stylesApp.module.css';
 import Footer from './shared/Footer/Footer';
 
-function App() {
-  return (
-    <Router>
-      <div className={styles.root}>
-        <Menu />
-        <div className={styles.content}>
-          <Route exact path="/games/audioChallenge">
-            <GamePage Game={AudioChallenge} dataGame={DataAudioChallenge} />
-          </Route>
-          <Route path="/games/sprint">
-            <GamePage dataGame={sprintData} Game={Sprint} />
-          </Route>
-          <Footer />
-        </div>
+const App: FC = () => (
+  <Router>
+    <div className={styles.root}>
+      <Menu />
+      <div className={styles.content}>
+        <Route exact path="/games/audioChallenge">
+          <GamePage Game={AudioChallenge} dataGame={DataAudioChallenge} />
+        </Route>
+        <Route path="/games/sprint">
+          <GamePage dataGame={sprintData} Game={Sprint} />
+        </Route>
+        <Footer />
       </div>
-    </Router>
-  );
-}
+    </div>
+  </Router>
+);
 
 export default App;
