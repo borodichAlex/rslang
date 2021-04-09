@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
 import WordList from '../../shared/WordList/WordList';
 import s from './TextBook.module.scss';
 
 const TextBook = () => {
     const [background, setBackground] = useState('skyblue');
 
-    const location = useLocation();
-
     const handleChangeBack = (group = 0) => {
-        switch (group) {
+        const groupN = Number(group);//  залетает строка
+        switch (groupN) {
             case 0: {
                 setBackground('skyblue');
                 break;
@@ -41,15 +39,11 @@ const TextBook = () => {
             }
 
             default: {
-                setBackground('rgb(20, 30, 84)');
+                setBackground('white');
                 break;
             }
         }
 };
-
-    useEffect(() => {
-        console.log(location);
-    }, []);
 
     return (
         <div

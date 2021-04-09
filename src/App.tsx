@@ -29,7 +29,7 @@ function App() {
             <Route path="/games/sprint">
               <GamePage dataGame={sprintData} Game={Sprint} />
             </Route>
-            <Route path="/textbook/:page">
+            <Route path="/textbook/:groupPath/:pagePath">
               <TextBook />
             </Route>
           <Footer />
