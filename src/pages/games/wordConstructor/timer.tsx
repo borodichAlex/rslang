@@ -9,12 +9,11 @@ import Context from './context';
 function CircularProgressWithLabel(
   props: CircularProgressProps & { value: number },
 ) {
-  // {...props}
-
   const { value } = props;
+
   return (
     <Box position="relative" display="inline-flex">
-      <CircularProgress variant="determinate" />
+      <CircularProgress color="secondary" variant="determinate" value={value} />
       <Box
         top={0}
         left={0}
@@ -26,7 +25,7 @@ function CircularProgressWithLabel(
         justifyContent="center"
       >
         <Typography variant="caption" component="div" color="textSecondary">
-          {`${Math.round(value)}`}
+          {`${Math.round(value / 1.666)}`}
         </Typography>
       </Box>
     </Box>
@@ -36,18 +35,19 @@ function CircularProgressWithLabel(
 export default function Timer() {
   const [progress, setProgress] = React.useState(100);
   const [isGameOver, setIsGameOver]: any = useContext(Context);
+
   if (!progress) {
     setIsGameOver(!isGameOver);
   }
 
   React.useEffect(() => {
     const timer = setInterval(() => {
-      setProgress((prevProgress) => (prevProgress >= 1 ? prevProgress - 1 : 0));
-    }, 800);
+      setProgress((prevProgress) => (prevProgress >= 1 ? prevProgress - 1.66 : 0));
+    }, 1000);
     return () => {
       clearInterval(timer);
     };
   }, []);
 
-  return <CircularProgressWithLabel value={progress} />;
+  return <CircularProgressWithLabel color="secondary" value={progress} />;
 }
