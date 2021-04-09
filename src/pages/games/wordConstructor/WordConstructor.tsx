@@ -5,8 +5,8 @@ import { IGame, IWord } from './interfaces';
 import errorSound from '../../../assets/Error.mp3';
 import successSound from '../../../assets/Correct.mp3';
 
-import s from './WordConstructor.module.scss';
 import Timer from './timer';
+import s from './WordConstructor.module.scss';
 
 const playSound = (path: string) => {
   const audio = document.createElement('audio');
@@ -82,14 +82,14 @@ function reducer(
 
 const Game = ({
   words,
-  // backToMenu,
+  gameOver,
   handleCorrectAnswer,
   handleWrongAnswer,
 }: IGame) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const currentWord: IWord = words[currentIndex];
   // const [timer, setTimer] = useState(60);
-  const [isGameOver, setIsGameOver] = useState(false);
+  // const [isGameOver, setIsGameOver] = useState(false);
 
   const [state, dispatch] = useReducer(reducer, currentWord, init);
 
@@ -129,7 +129,8 @@ const Game = ({
     }
     if (currentIndex < words.length - 1) {
       setTimeout(nextWord, 600);
-    } else setIsGameOver(true);
+    }
+    // else setIsGameOver(true);
   };
 
   const nextWord = () => {
@@ -152,64 +153,53 @@ const Game = ({
 
   return (
     <>
-      {!isGameOver ? (
-        <>
-          <div className="translate">
-            <Typography>{currentWord.wordTranslate}</Typography>
-          </div>
+      <div className="translate">
+        <Typography>{currentWord.wordTranslate}</Typography>
+      </div>
 
-          <div>
-            {state.answer.map((item, index) => {
-              const key = index;
-              const cell = (
-                <Paper
-                  elevation={4}
-                  color="primary"
-                  key={key * Math.random()}
-                  // className={s.cell}
-                >
-                  {item.value}
-                </Paper>
-              );
-              return cell;
-            })}
-          </div>
+      <div>
+        {state.answer.map((item, index) => {
+          const key = index;
+          const cell = (
+            <Paper
+              elevation={4}
+              color="primary"
+              key={key * Math.random()}
+              className={s.cell}
+            >
+              {item.value}
+            </Paper>
+          );
+          return cell;
+        })}
+      </div>
 
-          <div>
-            {state.currentLetters.map((item, index) => {
-              const key = index;
-              const letter = (
-                <Button
-                  // className={s.letter}
-                  color="primary"
-                  variant="contained"
-                  onClick={() => dispatch({ type: 'ADD_LETTER', payload: item })}
-                  key={key * Math.random()}
-                >
-                  {item.value}
-                </Button>
-              );
-              return letter;
-            })}
-          </div>
+      <div>
+        {state.currentLetters.map((item, index) => {
+          const key = index;
+          const letter = (
+            <Button
+              className={s.letter}
+              color="primary"
+              variant="contained"
+              onClick={() => dispatch({ type: 'ADD_LETTER', payload: item })}
+              key={key * Math.random()}
+            >
+              {item.value}
+            </Button>
+          );
+          return letter;
+        })}
+      </div>
 
-          <Button color="primary" variant="contained" onClick={reset}>
-            Сбросить
-          </Button>
-          {/* <span>{timer}</span> */}
-          <Timer />
-          <Button color="secondary" variant="contained" onClick={checkAnswer}>
-            Проверить
-          </Button>
-        </>
-      ) : (
-        <div className="game_over">
-          <Typography> Игра окончена</Typography>
-          {/* <Button onClick={backToMenu} variant="contained" color="secondary">
-            Вернуться в меню
-          </Button> */}
-        </div>
-      )}
+      <Button color="primary" variant="contained" onClick={reset}>
+        Сбросить
+      </Button>
+      {/* <span>{timer}</span> */}
+      <Timer />
+      <Button color="secondary" variant="contained" onClick={checkAnswer}>
+        Проверить
+      </Button>
     </>
   );
 };

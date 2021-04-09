@@ -1,6 +1,6 @@
 interface IGame {
   words: IWord[];
-  // backToMenu: () => void;
+  gameOver: () => void;
   handleCorrectAnswer: (id: string) => void;
   handleWrongAnswer: (id: string) => void;
 }

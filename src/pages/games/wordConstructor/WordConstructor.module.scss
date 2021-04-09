@@ -6,8 +6,8 @@
 .game {
   width: 100%;
   height: 100vh;
-  /* position: relative; */
-  background-color: rgb(168, 162, 162);
+  // /* position: relative; */
+  // background-color: rgb(168, 162, 162);
   font-size: 1.5em;
   font-weight: 600;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
@@ -76,7 +76,7 @@ li {
 }
 
 .exit {
-  position: absolute !important;
+  // position: absolute;
   top: 5px;
   right: 0;
 }

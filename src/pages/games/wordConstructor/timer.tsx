@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import CircularProgress, {
   CircularProgressProps,
 } from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import Context from './context';
 
 function CircularProgressWithLabel(
   props: CircularProgressProps & { value: number },
 ) {
   // {...props}
+
   const { value } = props;
   return (
     <Box position="relative" display="inline-flex">
@@ -33,6 +35,10 @@ function CircularProgressWithLabel(
 
 export default function Timer() {
   const [progress, setProgress] = React.useState(100);
+  const [isGameOver, setIsGameOver]: any = useContext(Context);
+  if (!progress) {
+    setIsGameOver(!isGameOver);
+  }
 
   React.useEffect(() => {
     const timer = setInterval(() => {
