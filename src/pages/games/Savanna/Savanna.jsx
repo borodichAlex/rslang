@@ -1,16 +1,19 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import getWords from '../helpers/getWords';
+import getWords from '../../../helpers/getWords';
 import './Savanna.scss';
 import { withStyles } from '@material-ui/core/styles';
 import { Rating } from '@material-ui/lab';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import Error from '../../../assets/Error.mp3';
+import Correct from '../../../assets/Correct.mp3';
 
 const correctAnswers = [];
 const wrongAnswers = [];
 const excludeWords = [];
 const WINDOW_HEIGHT = window.innerHeight;
-const audioCorrect = new Audio();
-const audioWrong = new Audio();
+const audioCorrect = new Audio(Correct);
+const audioWrong = new Audio(Error);
+let eventWorked = false;
 
 const StyledRating = withStyles({
     iconFilled: {
@@ -42,6 +45,7 @@ const Savanna = ({words, onSetAnswers}) => {
 
     useEffect(() => {
         if(currentWord) {
+            eventWorked = false;
             timeout = setTimeout(() => checkAnswer(null, true), 5000);
             document.addEventListener("keydown", handlerAnswer);
             setTimeout(() => setQuestionPosY(550), 20);
@@ -52,10 +56,6 @@ const Savanna = ({words, onSetAnswers}) => {
             };
         }
     }, [currentWord])
-
-    // useEffect(() => {
-    //     console.log(questionPosY);
-    // }, [questionPosY])
 
     const getNextWords = () => {
         const rndWords = getRandomWords();
@@ -68,29 +68,31 @@ const Savanna = ({words, onSetAnswers}) => {
 
     const handlerAnswer = (e) => {
         document.removeEventListener("keydown", handlerAnswer);
-        if(e.repeat) return;
+        if(eventWorked) return;
         if(e instanceof KeyboardEvent && allowedKeys.includes(e.key)) checkAnswer(e.key);
         else if(!(e instanceof KeyboardEvent)) checkAnswer(e.target.textContent.substr(0, 1));
     }
 
     const checkAnswer = (answer, timeout = false) => {
+        eventWorked = true;
         excludeWords.push(currentWord);
         if(timeout) {
             wrongAnswers.push(currentWord.id);
             setLives(lives => lives - 1);
+            audioWrong.play();
             setQuestionPosY(WINDOW_HEIGHT);
         }
         else {
             clearTimeout(timeout);
             setQuestionPosY(WINDOW_HEIGHT);
-            console.log(currentWords);
             const answerWord = currentWords[+answer - 1]?.word;
-            console.log(answerWord);
             if(answerWord === currentWord.word) {
                 correctAnswers.push(currentWord.id)
+                audioCorrect.play();
                 setbBackgroundPosY(currPos => currPos < 4 ? 0 : currPos - 5);
             } else {
                 wrongAnswers.push(currentWord.id);
+                audioWrong.play();
                 setLives(lives => lives - 1);
             }
         }
@@ -107,10 +109,10 @@ const Savanna = ({words, onSetAnswers}) => {
         });
     }
 
-    const handleIncorrect = () => {
-        const arr = wrongAnswers;
-        arr.push(currentId);
-    }
+    // const handleIncorrect = () => {
+    //     const arr = wrongAnswers;
+    //     arr.push(currentId);
+    // }
 
     const getRandomWords = () => {
         const result = [];
@@ -126,7 +128,6 @@ const Savanna = ({words, onSetAnswers}) => {
 
             const rnd = Math.floor(Math.random() * fromWords.length);
             result.push(fromWords[rnd]);
-            // console.log(fromWords.length);
         }
         return result;
     }
@@ -138,8 +139,6 @@ const Savanna = ({words, onSetAnswers}) => {
     }
     if(questionPosY == 10) questionStyle.transition = "unset";
     else if(questionPosY === WINDOW_HEIGHT) questionStyle.transition = "linear 1s"
-
-    // console.log(questionPosY);
 
     return (
         <div className="game-background" style={{backgroundPositionY: `${backgroundPosY}%`}}>
