@@ -35,11 +35,11 @@ const teamData: ITeamData[] = [
 ];
 
 export interface ITeamData {
-    name: string
-    nickName: string
-    gitLink: string
-    photo: string
-    contribution: string[]
+    name: string,
+    nickName: string,
+    gitLink: string,
+    photo: string,
+    contribution: string[],
     teamLead: boolean
 }
 
