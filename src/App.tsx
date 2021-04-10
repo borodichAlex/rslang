@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import GamePage from './pages/games/common/GamePage';
 import Menu from './shared/Menu';
 import {
@@ -18,17 +18,15 @@ function App() {
       <div className={styles.root}>
         <Menu />
         <div className={styles.content}>
-          <Switch>
-            <Route exact path="/games/audioChallenge">
-              <GamePage Game={AudioChallenge} dataGame={DataAudioChallenge} />
-            </Route>
-            <Route path="/games/sprint">
-              <GamePage dataGame={sprintData} Game={Sprint} />
-            </Route>
-            <Route path="/games/wordConstructor">
-              <GamePage dataGame={wordConstructorData} Game={WordConstructor} />
-            </Route>
-          </Switch>
+          <Route exact path="/games/audioChallenge">
+            <GamePage Game={AudioChallenge} dataGame={DataAudioChallenge} />
+          </Route>
+          <Route path="/games/sprint">
+            <GamePage dataGame={sprintData} Game={Sprint} />
+          </Route>
+          <Route path="/games/wordConstructor">
+            <GamePage dataGame={wordConstructorData} Game={WordConstructor} />
+          </Route>
           <Footer />
         </div>
       </div>
