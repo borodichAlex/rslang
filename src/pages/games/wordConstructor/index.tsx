@@ -39,28 +39,25 @@ const WordConstructor = ({ words, onSetPage, onSetAnswers }: IProps) => {
   const handleWrongAnswer = (id: string) => {
     wrongAnswer.current = [...wrongAnswer.current, id];
   };
-
+  const shuffleWords = [...words].sort(() => Math.random() - 0.5);
   return (
     <Context.Provider value={[isGameOver, setIsGameOver]}>
       <div className={s.game}>
         <ToggleFullScreen />
-        <IconButton
-          className={s.exit}
-          aria-label="exit"
-          onClick={() => onSetPage('MENU_PAGE')}
-        >
-          <HighlightOffIcon fontSize="large" />
-        </IconButton>
-        {/* <div className={s.game}> */}
+        <div className={s.exit}>
+          <IconButton aria-label="exit" onClick={() => onSetPage('MENU_PAGE')}>
+            <HighlightOffIcon fontSize="large" />
+          </IconButton>
+        </div>
+
         <div className={s.container}>
           <Game
-            words={words}
+            words={shuffleWords}
             gameOver={gameOver}
             handleCorrectAnswer={handleCorrectAnswer}
             handleWrongAnswer={handleWrongAnswer}
           />
         </div>
-        {/* </div> */}
       </div>
     </Context.Provider>
   );
