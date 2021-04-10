@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer, useState } from 'react';
-// import './WordConstructor.module.scss';
 import { Button, Paper, Typography } from '@material-ui/core';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import { IGame, IWord } from './interfaces';
 import errorSound from '../../../assets/Error.mp3';
 import successSound from '../../../assets/Correct.mp3';
@@ -41,8 +42,6 @@ type State = {
 };
 
 function init(curWord: IWord) {
-  console.log(curWord);
-
   return {
     answer: createCells(curWord.word.length),
     cellIndex: 0,
@@ -88,8 +87,6 @@ const Game = ({
 }: IGame) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const currentWord: IWord = words[currentIndex];
-  // const [timer, setTimer] = useState(60);
-  // const [isGameOver, setIsGameOver] = useState(false);
 
   const [state, dispatch] = useReducer(reducer, currentWord, init);
 
@@ -103,20 +100,17 @@ const Game = ({
     }
   };
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     if (timer >= 1) {
-  //       setTimer(timer - 1);
-  //     } else {
-  //       clearInterval(interval);
-  //       setTimeout(() => setIsGameOver(true), 500);
-  //     }
-  //   }, 1000);
+  const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+      cells: {
+        padding: theme.spacing(2),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+      },
+    }),
+  );
 
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
-  // }, [timer]);
+  const classes = useStyles();
 
   const checkAnswer = () => {
     const check = state.answer.map((i) => i.value).join('');
@@ -130,7 +124,6 @@ const Game = ({
     if (currentIndex < words.length - 1) {
       setTimeout(nextWord, 600);
     }
-    // else setIsGameOver(true);
   };
 
   const nextWord = () => {
@@ -153,53 +146,82 @@ const Game = ({
 
   return (
     <>
-      <div className="translate">
-        <Typography>{currentWord.wordTranslate}</Typography>
-      </div>
+      <div className={s.root}>
+        <Grid container justify="center" spacing={3}>
+          <Grid className={s.translate} item xs="auto">
+            <Typography>{currentWord.wordTranslate}</Typography>
+          </Grid>
+        </Grid>
 
-      <div>
-        {state.answer.map((item, index) => {
-          const key = index;
-          const cell = (
-            <Paper
-              elevation={4}
-              color="primary"
-              key={key * Math.random()}
-              className={s.cell}
-            >
-              {item.value}
-            </Paper>
-          );
-          return cell;
-        })}
-      </div>
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          spacing={2}
+          className={s.cells}
+        >
+          {state.answer.map((item, index) => {
+            const key = index;
+            const cell = (
+              <Grid item xs={'auto'}>
+                <Paper
+                  elevation={4}
+                  color="primary"
+                  key={key * Math.random()}
+                  // className={s.cell}
+                  className={classes.cells}
+                >
+                  {item.value}
+                </Paper>
+              </Grid>
+            );
+            return cell;
+          })}
+        </Grid>
 
-      <div>
-        {state.currentLetters.map((item, index) => {
-          const key = index;
-          const letter = (
+        <Grid container spacing={2} className={s.letters}>
+          {state.currentLetters.map((item, index) => {
+            const key = index;
+            const letter = (
+              <Grid item xs="auto">
+                <Button
+                  size="small"
+                  className={s.letter}
+                  color="primary"
+                  variant="contained"
+                  onClick={() => dispatch({ type: 'ADD_LETTER', payload: item })}
+                  key={key * Math.random()}
+                >
+                  {item.value}
+                </Button>
+              </Grid>
+            );
+            return letter;
+          })}
+        </Grid>
+
+        <Grid container justify="center" spacing={3}>
+          <Grid className={''} item xs="auto">
             <Button
-              className={s.letter}
               color="primary"
               variant="contained"
-              onClick={() => dispatch({ type: 'ADD_LETTER', payload: item })}
-              key={key * Math.random()}
+              onClick={reset}
+              // className={s.reset}
             >
-              {item.value}
+              Сбросить
             </Button>
-          );
-          return letter;
-        })}
+          </Grid>
+
+          <Grid className={s.translate} item xs="auto">
+            <Button color="secondary" variant="contained" onClick={checkAnswer}>
+              Проверить
+            </Button>
+          </Grid>
+        </Grid>
       </div>
 
-      <Button color="primary" variant="contained" onClick={reset}>
-        Сбросить
-      </Button>
-      {/* <span>{timer}</span> */}
-      <Timer />
-      <Button color="secondary" variant="contained" onClick={checkAnswer}>
-        Проверить
-      </Button>
+      <div className={s.timer}>{/* <Timer /> */}</div>
     </>
   );
 };
