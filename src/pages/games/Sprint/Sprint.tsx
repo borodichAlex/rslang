@@ -167,7 +167,7 @@ const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
     const currindex = Math.floor(Math.random() * 600);
     const correctTranslation = Math.floor(Math.random() * 2);
     setIsCorrect(correctTranslation);
-    setCurrentId(words[currindex].id); //! на этой строке крашится при переходе во время игры
+    setCurrentId(words[currindex].id);
     setWord(words[currindex].word);
     setCorrectTransl(words[currindex].wordTranslate);
     correctTranslation
