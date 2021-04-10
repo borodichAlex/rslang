@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useEffect, useReducer, useState } from 'react';
 import { Button, Paper, Typography } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
@@ -107,10 +108,23 @@ const Game = ({
         textAlign: 'center',
         color: theme.palette.text.secondary,
       },
+      translate: {
+        fontSize: '2rem',
+      },
     }),
   );
 
   const classes = useStyles();
+
+  useEffect(() => {
+    window.addEventListener('keypress', handleKey);
+
+    return () => window.removeEventListener('keypress', handleKey);
+  });
+
+  const reset = () => {
+    dispatch({ type: 'RESET', payload: currentWord });
+  };
 
   const checkAnswer = () => {
     const check = state.answer.map((i) => i.value).join('');
@@ -134,22 +148,14 @@ const Game = ({
     reset();
   }, [currentIndex]);
 
-  useEffect(() => {
-    window.addEventListener('keypress', handleKey);
-
-    return () => window.removeEventListener('keypress', handleKey);
-  });
-
-  const reset = () => {
-    dispatch({ type: 'RESET', payload: currentWord });
-  };
-
   return (
     <>
       <div className={s.root}>
         <Grid container justify="center" spacing={3}>
-          <Grid className={s.translate} item xs="auto">
-            <Typography>{currentWord.wordTranslate}</Typography>
+          <Grid item xs="auto">
+            <Typography className={classes.translate}>
+              {currentWord.wordTranslate}
+            </Typography>
           </Grid>
         </Grid>
 
@@ -159,7 +165,6 @@ const Game = ({
           justify="center"
           alignItems="center"
           spacing={2}
-          className={s.cells}
         >
           {state.answer.map((item, index) => {
             const key = index;
@@ -169,7 +174,6 @@ const Game = ({
                   elevation={4}
                   color="primary"
                   key={key * Math.random()}
-                  // className={s.cell}
                   className={classes.cells}
                 >
                   {item.value}
@@ -213,7 +217,7 @@ const Game = ({
             </Button>
           </Grid>
 
-          <Grid className={s.translate} item xs="auto">
+          <Grid className={''} item xs="auto">
             <Button color="secondary" variant="contained" onClick={checkAnswer}>
               Проверить
             </Button>
@@ -221,7 +225,9 @@ const Game = ({
         </Grid>
       </div>
 
-      <div className={s.timer}>{/* <Timer /> */}</div>
+      <div className={s.timer}>
+        <Timer />
+      </div>
     </>
   );
 };

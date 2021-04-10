@@ -39,10 +39,11 @@ const WordConstructor = ({ words, onSetPage, onSetAnswers }: IProps) => {
   const handleWrongAnswer = (id: string) => {
     wrongAnswer.current = [...wrongAnswer.current, id];
   };
-  const shuffleWords = [...words].sort(() => Math.random() - 0.5);
+  const shuffleWords = JSON.parse(JSON.stringify(words));
+  shuffleWords.sort(() => Math.random() - 0.5);
   return (
     <Context.Provider value={[isGameOver, setIsGameOver]}>
-      <div className={s.game}>
+      <div className={s.container}>
         <ToggleFullScreen />
         <div className={s.exit}>
           <IconButton aria-label="exit" onClick={() => onSetPage('MENU_PAGE')}>
@@ -50,7 +51,7 @@ const WordConstructor = ({ words, onSetPage, onSetAnswers }: IProps) => {
           </IconButton>
         </div>
 
-        <div className={s.container}>
+        <div className={s.game}>
           <Game
             words={shuffleWords}
             gameOver={gameOver}
