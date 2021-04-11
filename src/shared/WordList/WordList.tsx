@@ -33,7 +33,6 @@ const WordList = ({ handleChangeBack }: IWordList) => {
     }, []);
 
     useEffect(() => {
-        console.log('333333', pagePath);
         setPage(pagePath);
         handleChangeBack(groupPath);
         getWords(groupPath, pagePath - 1)
@@ -91,8 +90,7 @@ const WordList = ({ handleChangeBack }: IWordList) => {
                     count={30}
                     size="large"
                     onChange={(e, value) => history.push(`/textbook/${groupPath}/${value}`)}
-                    page={page}
-                    defaultPage={pagePath}
+                    page={Number(page)}
                     className={s.pagination}
                 />
             No words on this page
@@ -112,90 +110,121 @@ const WordList = ({ handleChangeBack }: IWordList) => {
                 }}
                 className={s.select}
             >
-                <MenuItem value={0}>A1</MenuItem>
-                <MenuItem value={1}>A2</MenuItem>
-                <MenuItem value={2}>B1</MenuItem>
-                <MenuItem value={3}>B2</MenuItem>
-                <MenuItem value={4}>C1</MenuItem>
-                <MenuItem value={5}>C2</MenuItem>
+                <MenuItem value="0">A1</MenuItem>
+                <MenuItem value="1">A2</MenuItem>
+                <MenuItem value="2">B1</MenuItem>
+                <MenuItem value="3">B2</MenuItem>
+                <MenuItem value="4">C1</MenuItem>
+                <MenuItem value="5">C2</MenuItem>
+                {/* список генерировать лучше из [A1, A2, ...] */}
             </Select>
+
             <Pagination
                 count={30}
                 size="large"
                 onChange={(e, value) => history.push(`/textbook/${groupPath}/${value}`)}
-                // page={page}
-                defaultPage={pagePath}
+                page={Number(pagePath)}
                 className={s.pagination}
             />
+
             {
-                data?.map((item: IWord, index: number) => (
-                    <div className={s.wordBlock} key={`${item.id}list`}>
-                        <button
-                            type="button"
-                            className={s.star_button}
-                            onClick={() => {
-                                let newMarked = marked;
-                                marked.includes(item.id)
-                                    ? (newMarked = newMarked.filter((mark) => mark !== item.id))
-                                    : newMarked.push(item.id);
-                                setMarked(newMarked);
-                                forceUpdate();
-                            }}
-                        >
-                            <img src={marked.includes(item.id) ? ActiveStar : Star} alt={true ? 'saved' : 'Save'} />        {/* условие, проверяющее наличие слова в сохранённых */}
-                        </button>
-                        <button
-                            type="button"
-                            className={s.basket_button}
-                            onClick={() => {
-                                console.log('click');
-                                const newArr = deleted;
-                                newArr.push(item.id);
-                                setDeleted(newArr);
-                                forceUpdate();
-                            }}
-                        >
-                            <img src={Basket} alt="Delete" />
-                        </button>
-                        <div className={s.text_block}>
-                            {index + 1}.
-                                 <b>{item.word}</b> - [{item.transcription}] - {item.wordTranslate}
-                            <button
-                                type="button"
-                                onClick={() => handlePlayAudio(item.audio)}
-                                className={s.word_translation_audio}
+                (data.length) && (
+                    data?.map((item: IWord, index: number) => (
+                        <div className={s.wordBlock} key={`${item.id}list`}>
+                            <div
+                                className={JSON.parse(localStorage.getItem('showControls') || 'true')
+                                    ? s.controls
+                                    : s.hidden}
                             >
-                                <img src={Sound} alt="PlaySound" />
-                            </button>
-                        </div>
-                        <br />
-                        <div className={s.text_block}>
-                            <span style={{ marginLeft: '15px' }} dangerouslySetInnerHTML={{ __html: item.textMeaning }} />
-                            <button
-                                type="button"
-                                onClick={() => handlePlayAudio(item.audioMeaning)}
-                                className={s.word_translation_audio}
+                                <button
+                                    type="button"
+                                    className={s.star_button}
+                                    onClick={() => {
+                                        let newMarked = marked;
+                                        marked.includes(item.id)
+                                            ? (newMarked = newMarked
+                                                .filter((mark) => mark !== item.id))
+                                            : newMarked.push(item.id);
+                                        setMarked(newMarked);
+                                        forceUpdate();
+                                    }}
+                                >
+                                    <img src={marked.includes(item.id) ? ActiveStar : Star} alt={true ? 'saved' : 'Save'} />        {/* условие, проверяющее наличие слова в сохранённых */}
+                                </button>
+                                <button
+                                    type="button"
+                                    className={s.basket_button}
+                                    onClick={() => {
+                                        const newArr = deleted;
+                                        newArr.push(item.id);
+                                        setDeleted(newArr);
+                                        forceUpdate();
+                                    }}
+                                >
+                                    <img src={Basket} alt="Delete" />
+                                </button>
+                            </div>
+                            <div className={s.text_block}>
+                                {index + 1}.
+                                <b>{item.word}</b> - [{item.transcription}]
+                                <div
+                                    className={JSON.parse(localStorage.getItem('showTranslation') || 'true')
+                                        ? s.text
+                                        : s.hidden}
+                                >
+                                    {` - ${item.wordTranslate}`}
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => handlePlayAudio(item.audio)}
+                                    className={s.word_translation_audio}
+                                >
+                                    <img src={Sound} alt="PlaySound" />
+                                </button>
+                            </div>
+                            <br />
+                            <div className={s.text_block}>
+                                <span style={{ marginLeft: '15px', marginBottom: '15px' }} dangerouslySetInnerHTML={{ __html: item.textMeaning }} />
+                                <button
+                                    type="button"
+                                    onClick={() => handlePlayAudio(item.audioMeaning)}
+                                    className={s.word_translation_audio}
+                                >
+                                    <img src={Sound} alt="PlaySound" style={{ marginBottom: '15px' }} />
+                                </button>
+                            </div>
+                            <div
+                                style={{ marginLeft: '15px', marginBottom: '15px' }}
+                                className={JSON.parse(localStorage.getItem('showTranslation') || 'true')
+                                    ? s.text
+                                    : s.hidden}
                             >
-                                <img src={Sound} alt="PlaySound" />
-                            </button>
-                        </div>
-                        <br />
-                        <div style={{ marginLeft: '15px' }}>{item.textMeaningTranslate}</div>
-                        <br />
-                        <div className={s.text_block}>
-                            <span style={{ marginLeft: '15px' }} dangerouslySetInnerHTML={{ __html: item.textExample }} />
-                            <button
-                                type="button"
-                                onClick={() => handlePlayAudio(item.audioExample)}
-                                className={s.word_translation_audio}
+                                {item.textMeaningTranslate}
+                            </div>
+                            <div className={s.text_block}>
+                                <span style={{ marginLeft: '15px', marginBottom: '15px' }} dangerouslySetInnerHTML={{ __html: item.textExample }} />
+                                <button
+                                    type="button"
+                                    onClick={() => handlePlayAudio(item.audioExample)}
+                                    className={s.word_translation_audio}
+                                >
+                                    <img src={Sound} alt="PlaySound" style={{ marginBottom: '15px' }} />
+                                </button>
+                            </div>
+                            <div
+                                style={{ marginLeft: '15px'}}
+                                className={JSON.parse(localStorage.getItem('showTranslation') || 'true')
+                                    ? s.text
+                                    : s.hidden}
                             >
-                                <img src={Sound} alt="PlaySound" />
-                            </button>
+                                {item.textExampleTranslate}
+                            </div>
                         </div>
-                        <br />
-                        <div style={{ marginLeft: '15px' }}>{item.textExampleTranslate}</div>
-                    </div>
-                ))
+                    ))
+                )
+            }
+            {
+                (!data.length) && 'No words on this page'
             }
         </div>
     );

@@ -2,10 +2,23 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-content: center;
-
-    // color: red;
-    // color: rgb(144, 6, 6);
+    align-content: center;  
 
     min-height: 100vh;
+}
+
+.header {
+    display: flex;
+    align-content: center;
+
+    height: 100px;
+}
+
+.settings_button {
+    margin-right: 0px !important;
+    margin-left: auto !important;
+}
+
+.settings_button img{
+    width: 32px;
 }

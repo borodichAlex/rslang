@@ -113,3 +113,19 @@
     margin-bottom: 15px;
     border: none;
 }
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition: 1s;
+}
+
+.text {
+    opacity: 1;
+    transition: 1s;
+}
+
+.controls {
+    opacity: 1;
+    transition: 1s;
+}
