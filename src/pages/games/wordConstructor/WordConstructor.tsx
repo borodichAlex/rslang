@@ -101,8 +101,8 @@ const Game = ({
     }
   };
 
-  const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
+  const useStyles = makeStyles((theme: Theme) => {
+    const style = createStyles({
       cells: {
         padding: theme.spacing(2),
         textAlign: 'center',
@@ -111,8 +111,9 @@ const Game = ({
       translate: {
         fontSize: '2rem',
       },
-    }),
-  );
+    });
+    return style;
+  });
 
   const classes = useStyles();
 
@@ -169,7 +170,7 @@ const Game = ({
           {state.answer.map((item, index) => {
             const key = index;
             const cell = (
-              <Grid item xs={'auto'}>
+              <Grid item xs="auto">
                 <Paper
                   elevation={4}
                   color="primary"
@@ -206,7 +207,7 @@ const Game = ({
         </Grid>
 
         <Grid container justify="center" spacing={3}>
-          <Grid className={''} item xs="auto">
+          <Grid item xs="auto">
             <Button
               color="primary"
               variant="contained"
@@ -217,7 +218,7 @@ const Game = ({
             </Button>
           </Grid>
 
-          <Grid className={''} item xs="auto">
+          <Grid item xs="auto">
             <Button color="secondary" variant="contained" onClick={checkAnswer}>
               Проверить
             </Button>
