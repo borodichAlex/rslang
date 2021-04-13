@@ -107,11 +107,11 @@ const SignUp: FC = () => {
 
       const res = await fetch(`${baseUrl}/signup`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-        // body: formData,
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
+        // body: JSON.stringify(data),
+        body: new FormData(formRef.current as HTMLFormElement),
       });
       const result = res.json();
       console.log({ result });
@@ -122,6 +122,7 @@ const SignUp: FC = () => {
   const [successLoading, setSuccessLoading] = React.useState(false);
 
   const imageRef = useRef<HTMLImageElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   function readImage(input: HTMLInputElement) {
     if (input.files) {
@@ -162,7 +163,7 @@ const SignUp: FC = () => {
 
   return (
     <div className={styles.root}>
-      <form className={styles.form} onSubmit={formik.handleSubmit} method="POST">
+      <form className={styles.form} onSubmit={formik.handleSubmit} method="POST" ref={formRef}>
         <Typography variant="h3" component="h2" color="initial">Регистрация</Typography>
         <TextField
           fullWidth
