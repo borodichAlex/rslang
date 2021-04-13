@@ -11,8 +11,8 @@ const teamData: ITeamData[] = [
         name: 'Pavel Maslovskyi',
         nickName: 'PavelMGs',
         gitLink: 'https://github.com/PavelMGs',
-        photo: 'https://www.meme-arsenal.com/memes/d25b7340298cb4982ccfe297b64e6190.jpg',
-        contribution: ['Создание и оформление игры Спринт', 'Создание и оформление компонента "Список слов"', 'Создание и оформление компонента "О Команде"'],
+        photo: 'https://avatars.githubusercontent.com/u/67228385?v=4',
+        contribution: ['Создание и оформление игры Спринт', 'Создание и оформление учебника и всех уго компонентов', 'Создание и оформление компонента "О Команде"'],
         teamLead: false,
     },
     {
