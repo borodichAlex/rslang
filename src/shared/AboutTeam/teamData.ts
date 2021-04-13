@@ -12,7 +12,7 @@ const teamData: ITeamData[] = [
         nickName: 'PavelMGs',
         gitLink: 'https://github.com/PavelMGs',
         photo: 'https://avatars.githubusercontent.com/u/67228385?v=4',
-        contribution: ['Создание и оформление игры Спринт', 'Создание и оформление учебника и всех уго компонентов', 'Создание и оформление компонента "О Команде"'],
+        contribution: ['Создание и оформление игры Спринт', 'Создание и оформление учебника и всех его компонентов', 'Создание и оформление компонента "О Команде"'],
         teamLead: false,
     },
     {
