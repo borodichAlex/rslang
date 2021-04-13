@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import { LinearProgress, IconButton, Button } from '@material-ui/core';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
@@ -88,7 +88,7 @@ const getRightWord = (words: IWordStage[]) => {
   return words[randomIndex];
 };
 
-const AudioChallenge = ({ words, onSetPage, onSetAnswers }: IProps) => {
+const AudioChallenge: FC<IProps> = ({ words, onSetPage, onSetAnswers }: IProps) => {
   const [stage, setStage] = useState(1);
   const [wordsStage, setWordsStage] = useState<IWordStage[]>(
     getPreparedWordsStage(words, stage, baseAmountWordsStage),

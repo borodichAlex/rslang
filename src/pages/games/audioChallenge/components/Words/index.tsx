@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Word from '../Word';
 import { IWordStage } from '../../audioChallenge';
@@ -11,7 +11,7 @@ type IProps = {
   onSelectAnswer: (isRight: boolean) => void;
 };
 
-const Words = ({
+const Words: FC<IProps> = ({
   words, idRightWord, isSelectedAnswer, onSelectAnswer,
 }: IProps) => {
   const [idSelectedWord, setIdSelectedWord] = useState('');

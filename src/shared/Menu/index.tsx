@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import {
   Link, IconButton, Typography, Button,
 } from '@material-ui/core';
@@ -40,7 +40,7 @@ const authLinks = [
   },
 ];
 
-function Menu() {
+const Menu: FC = () => {
   const [isAuthUser, setIsAuthUser] = useState(false);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const handleToggleMenu = () => {
@@ -129,6 +129,6 @@ function Menu() {
 
     </div>
   );
-}
+};
 
 export default Menu;
