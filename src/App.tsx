@@ -13,6 +13,7 @@ import Sprint from './pages/games/Sprint/Sprint';
 import { sprintData } from './helpers/gamesData';
 import styles from './stylesApp.module.css';
 import Footer from './shared/Footer/Footer';
+import Statistic from './pages/Statistic/Statistic';
 
 const App: FC = () => (
   <Router>
@@ -25,6 +26,7 @@ const App: FC = () => (
         <Route path="/games/sprint">
           <GamePage dataGame={sprintData} Game={Sprint} />
         </Route>
+        <Route path="/statistics" component={Statistic} />
         <Footer />
       </div>
     </div>
