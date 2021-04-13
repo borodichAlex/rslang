@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import {
   TextField, Typography, Button,
 } from '@material-ui/core';
-
+import baseUrl from '../../../../helpers/baseUrl';
 import styles from '../../styles.module.css';
 
 const validationSchema = Yup.object({
@@ -18,15 +18,24 @@ const validationSchema = Yup.object({
     .required('Требуется пароль'),
 });
 
-const SignUp: FC = () => {
+const SignIn: FC = () => {
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
     },
     validationSchema,
-    onSubmit: (values) => {
-      console.log(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      const res = await fetch(`${baseUrl}/signin`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
+
+      const result = res.json();
+      console.log({ result });
     },
   });
 
@@ -68,4 +77,4 @@ const SignUp: FC = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;

@@ -89,14 +89,14 @@ const Menu: FC = () => {
             : (
               <ButtonGroup variant="outlined" aria-label="auth">
                 <Button
-                  style={{whiteSpace: 'nowrap'}}
+                  style={{ whiteSpace: 'nowrap' }}
                   component={RouterLink}
                   to={{ pathname: '/login' }}
                 >
                   Log In
                 </Button>
                 <Button
-                  style={{whiteSpace: 'nowrap'}}
+                  style={{ whiteSpace: 'nowrap' }}
                   component={RouterLink}
                   to={{ pathname: '/registration' }}
                 >
