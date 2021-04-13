@@ -1,0 +1,120 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    width: 99%;
+    min-height: 75vh;
+
+    background: linear-gradient( rgba(255, 255, 255, 0.653), rgba(255, 255, 255, 0.455)) ;
+
+    border-radius: 20px;
+
+    overflow: scroll;
+    padding-top: 20px;
+    padding-left: 15px;
+    margin-right: 0;
+    margin-left: auto;
+
+    box-sizing: border-box;
+
+    box-shadow: 0 0 25px;
+}
+
+@media (max-height: 630px) {
+    .page {
+        min-height: 65vh;
+    }
+}
+
+@media (max-height: 430px) {
+    .page {
+        min-height: 60vh;
+    }
+}
+
+.page::-webkit-scrollbar {
+    display: none;
+}
+
+.page > div {
+    font-size: 20px;
+    margin: 15px;
+}
+
+.wordBlock {
+    position: relative;
+
+    transition: 0.4s;
+
+    border-radius: 10px;
+
+    padding: 10px;
+}
+
+.text_block {
+    display: flex;
+    align-items: center;
+}
+
+.restore_button {
+    background: none;
+    border: none;
+    outline: none;
+
+    position: absolute;
+    right: 48px;
+}
+
+.restore_button > img {
+    width: 24px;
+}
+
+.basket_button {
+    background: none;
+    border: none;
+    outline: none;
+
+    position: absolute;
+    top: 11px;
+    right: 10px;
+}
+
+.basket_button > img {
+    width: 24px;
+}
+
+.word_translation_audio {
+    background: none;
+    border: none;
+    outline: none;
+
+    margin-bottom: -10px;
+}
+
+.word_translation_audio > img {
+    transition: 0.3s;
+    width: 24px;
+}
+
+.word_translation_audio > img:hover {
+    width: 26px;
+}
+
+.wordBlock:hover {
+    box-shadow: 5px 5px 10px;
+}
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition: 1s;
+}
+
+.text {
+    opacity: 1;
+    transition: 1s;
+}
+
+.controls {
+    opacity: 1;
+    transition: 1s;
+}

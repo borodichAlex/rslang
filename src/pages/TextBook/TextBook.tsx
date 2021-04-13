@@ -1,14 +1,20 @@
 import { Button, Menu, MenuItem } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import WordList from '../../shared/WordList/WordList';
+import HardList from '../../shared/HardList/HardList';
 import Settings from '../../assets/Settings.png';
 import s from './TextBook.module.scss';
+import DeletedList from '../../shared/DeletedList/DeletedList';
+import InLearn from '../../shared/InLearn/InLearn';
 
 const TextBook = () => {
     const [background, setBackground] = useState('skyblue');
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [textControls, setTextControls] = useState('Не отображать перевод');
     const [textTranslation, setTextTranslation] = useState('Скрыть элементы управления');
+
+    const history = useHistory();
 
     useEffect(() => {
         localStorage.getItem('showTranslation') !== null
@@ -19,17 +25,17 @@ const TextBook = () => {
             ? null
             : localStorage.setItem('showControls', JSON.stringify(true));
 
-            if (JSON.parse(localStorage.getItem('showTranslation') || 'true')) {
-                setTextTranslation('Не отображать перевод');
-            } else {
-                setTextTranslation('Отображать перевод');
-            }
+        if (JSON.parse(localStorage.getItem('showTranslation') || 'true')) {
+            setTextTranslation('Не отображать перевод');
+        } else {
+            setTextTranslation('Отображать перевод');
+        }
 
-            if (JSON.parse(localStorage.getItem('showControls') || 'true')) {
-                setTextControls('Скрыть элементы управления');
-            } else {
-                setTextControls('Показать элементы управления');
-            }
+        if (JSON.parse(localStorage.getItem('showControls') || 'true')) {
+            setTextControls('Скрыть элементы управления');
+        } else {
+            setTextControls('Показать элементы управления');
+        }
     }, []);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -69,6 +75,42 @@ const TextBook = () => {
             style={{ backgroundColor: background }}
         >
             <div className={s.header}>
+                <button
+                    type="button"
+                    className={s.switch_page}
+                    onClick={() => {
+                        history.push('/textbook/common/0/1');
+                    }}
+                >
+                    Все слова
+                </button>
+                <button
+                    type="button"
+                    className={s.switch_page}
+                    onClick={() => {
+                        history.push('/textbook/inlearn');
+                    }}
+                >
+                    Изучаемые слова
+                </button>
+                <button
+                    type="button"
+                    className={s.switch_page}
+                    onClick={() => {
+                        history.push('/textbook/hardwords');
+                    }}
+                >
+                    Сложные слова
+                </button>
+                <button
+                    type="button"
+                    className={s.switch_page}
+                    onClick={() => {
+                        history.push('/textbook/deleted');
+                    }}
+                >
+                    Удаленные слова
+                </button>
                 <Button className={s.settings_button} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                     <img src={Settings} alt="Настройки" />
                 </Button>
@@ -79,11 +121,24 @@ const TextBook = () => {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
-                    <MenuItem id="show-translation" onClick={handleClose}>{ textTranslation }</MenuItem>
-                    <MenuItem id="show-controls" onClick={handleClose}>{ textControls }</MenuItem>
+                    <MenuItem id="show-translation" onClick={handleClose}>{textTranslation}</MenuItem>
+                    <MenuItem id="show-controls" onClick={handleClose}>{textControls}</MenuItem>
                 </Menu>
             </div>
-            <WordList handleChangeBack={handleChangeBack} />
+            <Switch>
+                <Route path="/textbook/common/:groupPath/:pagePath">
+                    <WordList handleChangeBack={handleChangeBack} />
+                </Route>
+                <Route path="/textbook/inlearn">
+                    <InLearn />
+                </Route>
+                <Route path="/textbook/hardwords">
+                    <HardList />
+                </Route>
+                <Route path="/textbook/deleted">
+                    <DeletedList />
+                </Route>
+            </Switch>
         </div>
     );
 };
