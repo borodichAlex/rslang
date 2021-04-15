@@ -1,0 +1,112 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.game {
+  width: 55%;
+  height: 50%;
+  position: relative;
+  border-radius: 1rem;
+  top: 25%;
+  left: 25%;
+  background-color: rgba(55, 99, 112, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.translate {
+  font-size: 1.5rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.letter {
+  width: 10%;
+}
+
+.letters {
+  display: flex;
+  justify-content: center;
+}
+
+// .cell {
+//   width: 60px;
+//   height: 60px;
+//   background: rgb(255, 184, 134);
+//   border: 1px chocolate solid;
+//   margin: 10px;
+// }
+
+.exit {
+  position: absolute;
+  top: 5px;
+  right: 0;
+}
+
+.timer {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+@media (max-width: 1400px) {
+  .game {
+    width: 70%;
+    position: relative;
+    top: 20%;
+    left: 17%;
+  }
+}
+@media (max-width: 900px) {
+  .game {
+    width: 70%;
+    position: relative;
+    top: 20%;
+    left: 17%;
+  }
+
+  .letter {
+    width: 6%;
+  }
+}
+
+@media (max-width: 500px) {
+  .game {
+    width: 100%;
+    position: static;
+    margin-top: 25%;
+  }
+  .timer {
+    top: 16rem;
+    right: 1rem;
+  }
+
+  .MuiGrid-spacing-xs-2 > .MuiGrid-item {
+    padding: 2px !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .timer {
+    top: 15rem;
+  }
+}
