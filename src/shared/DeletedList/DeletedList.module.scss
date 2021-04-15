@@ -55,7 +55,7 @@
     align-items: center;
 }
 
-.star_button {
+.restore_button {
     background: none;
     border: none;
     outline: none;
@@ -64,7 +64,7 @@
     right: 48px;
 }
 
-.star_button > img {
+.restore_button > img {
     width: 24px;
 }
 
@@ -101,17 +101,6 @@
 
 .wordBlock:hover {
     box-shadow: 5px 5px 10px;
-}
-
-.pagination {
-    align-self: center;
-}
-
-.select {
-    width: 100px;
-    text-align: center;
-    margin-bottom: 15px;
-    border: none;
 }
 
 .hidden {

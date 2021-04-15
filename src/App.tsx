@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Redirect,
   Route,
+  Switch,
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import GamePage from './pages/games/common/GamePage';
@@ -15,6 +16,7 @@ import Sprint from './pages/games/Sprint/Sprint';
 import { sprintData, wordConstructorData } from './helpers/gamesData';
 import WordConstructor from './pages/games/wordConstructor';
 import Footer from './shared/Footer/Footer';
+import TextBook from './pages/TextBook/TextBook';
 import Auth from './pages/Auth';
 import styles from './stylesApp.module.css';
 import checkAuthUser from './utils/checkAuthUser';
@@ -41,6 +43,9 @@ const App: FC = () => {
           </Route>
           <Route path="/games/wordConstructor">
             <GamePage dataGame={wordConstructorData} Game={WordConstructor} />
+          </Route>
+          <Route path="/textbook">
+            <TextBook />
           </Route>
           {
             !isAuthUser ? (
