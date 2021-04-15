@@ -5,13 +5,20 @@ import {
 import { Menu as MenuIcon, Close as CloseIcon } from '@material-ui/icons';
 import {
   Link as RouterLink,
+  useLocation,
+  useHistory,
 } from 'react-router-dom';
-import imgUser from './logo192.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { userLogOut } from '../../redux/user/actions';
+import { RootState } from '../../redux/store';
 
 import styles from './styles.module.css';
+import './styles.css';
+import { deleteUserId } from '../../utils/UserUtils';
+import { deleteAccessToken, deleteRefreshToken } from '../../utils/TokenUtils';
 
-const Avatar = ({ urlImg }: {urlImg: string}) => (
-  <img className={styles.avatar} src={urlImg} alt="avatar" />
+const Avatar = ({ urlImg, name }: {urlImg: string, name: string}) => (
+  <img className={styles.avatar} src={urlImg} alt={`avatar ${name}`} title={name} />
 );
 
 const links = [
@@ -40,8 +47,16 @@ const authLinks = [
   },
 ];
 
+const removeActiveClassInList = (
+  listNode: HTMLUListElement | HTMLMenuElement,
+  className: string,
+) => {
+  const activeEl = Array.from(listNode.children)
+    .find((el: Element) => el.classList.contains(className));
+  activeEl && activeEl.classList.remove(className);
+};
+
 const Menu: FC = () => {
-  const [isAuthUser, setIsAuthUser] = useState(false);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const handleToggleMenu = () => {
     if (!isOpenMenu) {
@@ -51,6 +66,36 @@ const Menu: FC = () => {
     }
     setIsOpenMenu((is) => !is);
   };
+
+  const location = useLocation();
+  const history = useHistory();
+
+  const dispatchUser = useDispatch();
+
+  const {
+    isAuth: isAuthUser, avatar, name: userName,
+  } = useSelector((store: RootState) => store.user);
+
+  useEffect(() => {
+    const activeClass = 'item--active';
+    const menuList: HTMLUListElement | HTMLMenuElement | null = document.querySelector('#menu-list');
+
+    if (menuList !== null) {
+      const elem = Array.from(menuList.children).find((el) => el.firstElementChild?.getAttribute('href') === location.pathname);
+
+      if (elem) {
+        if (!(elem.classList.contains(activeClass))) {
+          removeActiveClassInList(menuList, activeClass);
+          elem.classList.add(activeClass);
+        }
+        if (elem.children[0].textContent === 'Выйти') {
+          elem.classList.remove(activeClass);
+        }
+      } else {
+        removeActiveClassInList(menuList, activeClass);
+      }
+    }
+  }, [location]);
 
   useEffect(() => {
     const handleClick = (e: any) => {
@@ -69,7 +114,7 @@ const Menu: FC = () => {
   });
 
   return (
-    <div className={`${styles.menu} ${isOpenMenu && styles.menuShow}`}>
+    <div className={`${styles.menu} ${isOpenMenu && styles.menuShow}`} id="menu">
       <IconButton className={styles.iconMenu} aria-label="toggle menu" onClick={handleToggleMenu}>
         {isOpenMenu ? <CloseIcon /> : <MenuIcon />}
       </IconButton>
@@ -85,20 +130,20 @@ const Menu: FC = () => {
             <Typography className={styles.logo} variant="h4" component="h1" color="initial">RS Lang</Typography>
           </Link>
           {
-            isAuthUser ? <Avatar urlImg={imgUser} />
+            isAuthUser ? <Avatar urlImg={avatar} name={userName} />
             : (
               <ButtonGroup variant="outlined" aria-label="auth">
                 <Button
                   style={{ whiteSpace: 'nowrap' }}
                   component={RouterLink}
-                  to={{ pathname: '/login' }}
+                  to={{ pathname: '/signin' }}
                 >
                   Log In
                 </Button>
                 <Button
                   style={{ whiteSpace: 'nowrap' }}
                   component={RouterLink}
-                  to={{ pathname: '/registration' }}
+                  to={{ pathname: '/signup' }}
                 >
                   Sign up
                 </Button>
@@ -106,7 +151,7 @@ const Menu: FC = () => {
               )
           }
         </div>
-        <ul className={styles.list}>
+        <ul className={styles.list} id="menu-list">
           {
             links.map(({ title, path }) => (
               <li key={title} className={styles.item}>
@@ -139,11 +184,17 @@ const Menu: FC = () => {
               }
               <li className={styles.item}>
                 <Link
-                  // onClick={handleToggleAuthUser}
+                  onClick={() => {
+                    deleteUserId();
+                    deleteRefreshToken();
+                    deleteAccessToken();
+                    dispatchUser(userLogOut());
+                    history.push('/');
+                  }}
                   className={styles.link}
                   underline="none"
                   component={RouterLink}
-                  to={{ state: { prevPath: '/menu' } }}
+                  to={{ pathname: '/', state: { prevPath: '/menu' } }}
                 >
                   Выйти
                 </Link>
