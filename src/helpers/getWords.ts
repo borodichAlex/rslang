@@ -1,7 +1,8 @@
 import { IWord } from '../interfaces/IWord';
+import baseUrl from './baseUrl';
 
-const getWords = async (complexity: number, page: number):Promise<IWord[]> => {
-  const url = `https://rs-lang-team-33.herokuapp.com/words?group=${complexity}&page=${page}`;
+const getWords = async (complexity: number, page: number) => {
+  const url = `${baseUrl}/words?group=${complexity}&page=${page}`;
   const response = await fetch(url);
   const parsedResponse: IWord[] = await response.json();
   return parsedResponse;
