@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Button from '@material-ui/core/Button';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
@@ -12,7 +12,7 @@ type IProps = {
   onSelectWord: (id: string) => void;
 }
 
-const Word = ({
+const Word: FC<IProps> = ({
   id, translate, numKey, isRightWord, onSelectWord, isSelectedAnswer, isSelectedWord,
 }: IProps) => {
   const handleClick = () => {

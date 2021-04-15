@@ -1,13 +1,14 @@
 import { IWord } from '../interfaces/IWord';
+import baseUrl from './baseUrl';
 
 const getWords = async (complexity: number, page: number) => {
-  const url = `https://rs-lang-team-33.herokuapp.com/words?group=${complexity}&page=${page}`;
+  const url = `${baseUrl}/words?group=${complexity}&page=${page}`;
   const response = await fetch(url);
   const parsedResponse: IWord[] = await response.json();
   return parsedResponse;
 };
 
-export const getNumbersWords = async (amount: number, complexity: number) => {
+export const getNumbersWords = async (amount: number, complexity: number):Promise<IWord[]> => {
   const baseAmountWords = 20;
   const prepareArr = [];
   for (let i = 0; i < Math.ceil(amount / baseAmountWords); i += 1) {

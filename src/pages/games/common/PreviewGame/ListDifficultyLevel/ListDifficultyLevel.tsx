@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {
   List,
   ListItem,
@@ -14,7 +14,7 @@ type IProps = {
   onSetComplexity: IFnSetComplexity;
 }
 
-function ListDifficultyLevel({ onSetComplexity }: IProps) {
+const ListDifficultyLevel: FC<IProps> = ({ onSetComplexity }: IProps) => {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   const handleListItemClick = (index: number) => {
@@ -50,6 +50,6 @@ function ListDifficultyLevel({ onSetComplexity }: IProps) {
       }
     </List>
   );
-}
+};
 
 export default ListDifficultyLevel;

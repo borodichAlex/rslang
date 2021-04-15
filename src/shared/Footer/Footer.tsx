@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 import teamData from '../AboutTeam/teamData';
 import s from './Footer.module.scss';
 import RsSchool from '../../assets/RsSchool.svg';
 
-function Footer() {
+const Footer: FC = () => {
     const location = useLocation();
 
     if (location.pathname.match(/games/)) {
@@ -17,8 +17,8 @@ function Footer() {
                 <div className={s.centered_block}>
                     <ul className={s.members}>
                         {
-                            teamData.map((member) => (
-                                <li key={`${member.name}footerlink`}>
+                            teamData.map((member, index) => (
+                                <li key={`${index + 1}`}>
                                     <a href={member.gitLink} target="blank">{member.nickName}</a>
                                 </li>
                             ))
@@ -34,6 +34,6 @@ function Footer() {
             </div>
         </div>
     );
-}
+};
 
 export default Footer;
