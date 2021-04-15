@@ -1,11 +1,21 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useReducer } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {
   TextField, Typography, Button,
 } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import signInReducer, { initialState } from './reducer';
+import { userLoggedIn } from '../../../../redux/user/actions';
 import baseUrl from '../../../../helpers/baseUrl';
+import {
+ signInFail, signInRequest, signInSuccess,
+} from './actions';
+import { setAccessToken, setRefreshToken } from '../../../../utils/TokenUtils';
+
 import styles from '../../styles.module.css';
+import { setUserId } from '../../../../utils/UserUtils';
 
 const validationSchema = Yup.object({
   email: Yup
@@ -18,7 +28,21 @@ const validationSchema = Yup.object({
     .required('Требуется пароль'),
 });
 
+type IResSignIn = {
+  avatar: string,
+  message: string,
+  name: string,
+  refreshToken: string,
+  token: string,
+  userId: string,
+}
+
 const SignIn: FC = () => {
+  const [state, dispatch] = useReducer(signInReducer, initialState);
+  const history = useHistory();
+
+  const dispatchUser = useDispatch();
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -26,6 +50,8 @@ const SignIn: FC = () => {
     },
     validationSchema,
     onSubmit: async (values) => {
+      dispatch(signInRequest());
+
       const res = await fetch(`${baseUrl}/signin`, {
         method: 'POST',
         headers: {
@@ -34,8 +60,22 @@ const SignIn: FC = () => {
         body: JSON.stringify(values),
       });
 
-      const result = res.json();
-      console.log({ result });
+      if (res.ok) {
+        const {
+          name, avatar, userId, refreshToken, token,
+        }: IResSignIn = await res.json();
+
+        dispatch(signInSuccess());
+
+        setRefreshToken(refreshToken);
+        setAccessToken(token);
+        setUserId(userId);
+
+        dispatchUser(userLoggedIn({ name, avatar }));
+        history.goBack();
+      } else {
+        dispatch(signInFail(res.status));
+      }
     },
   });
 
@@ -69,6 +109,7 @@ const SignIn: FC = () => {
           helperText={formik.touched.password && formik.errors.password}
         />
 
+        {state.isLoading ? <h3>Проверка</h3> : (state.isError && 'Not Found')}
         <Button className={styles.submit} fullWidth variant="outlined" type="submit">
           Войти
         </Button>
