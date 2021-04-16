@@ -46,10 +46,6 @@ const authLinks = [
     title: 'Учебник',
   },
   {
-    path: '/settings',
-    title: 'Настройки',
-  },
-  {
     path: '/statistics',
     title: 'Статистика',
   },
