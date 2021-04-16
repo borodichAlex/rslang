@@ -1,5 +1,6 @@
 build/*
 public/*
 src/react-app-env.d.ts
-src/serviceWorker.ts 
+src/serviceWorker.ts
 src/timer.tsx
+src/pages/games/Savanna/

@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Redirect,
   Route,
-  Switch,
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import GamePage from './pages/games/common/GamePage';
@@ -13,7 +12,7 @@ import {
   description as DataAudioChallenge,
 } from './pages/games/audioChallenge';
 import Sprint from './pages/games/Sprint/Sprint';
-import { sprintData, wordConstructorData } from './helpers/gamesData';
+import { savannaData, sprintData, wordConstructorData } from './helpers/gamesData';
 import WordConstructor from './pages/games/wordConstructor';
 import Footer from './shared/Footer/Footer';
 import TextBook from './pages/TextBook/TextBook';
@@ -21,6 +20,7 @@ import Auth from './pages/Auth';
 import styles from './stylesApp.module.css';
 import checkAuthUser from './utils/checkAuthUser';
 import { RootState } from './redux/store';
+import Savanna from './pages/games/Savanna/Savanna';
 
 const App: FC = () => {
   const dispatch = useDispatch();
@@ -43,6 +43,9 @@ const App: FC = () => {
           </Route>
           <Route path="/games/wordConstructor">
             <GamePage dataGame={wordConstructorData} Game={WordConstructor} />
+          </Route>
+          <Route path="/games/savanna">
+            <GamePage dataGame={savannaData} Game={Savanna} />
           </Route>
           <Route path="/textbook">
             <TextBook />

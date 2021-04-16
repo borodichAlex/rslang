@@ -24,3 +24,12 @@ export const wordConstructorData = {
   bg: '#008000',
   amountWords: 50,
 };
+
+export const savannaData = {
+  name: 'Саванна',
+  goal: 'Цель: Выбрать правильный перевод слова',
+  description:
+    'В этой игре вам предстоит сравнивать слово на английском с его переводом на русском языке. Если слово и перевод соответствуют друг другу - нажмите стрелочку вправо либо на кнопку "верно", если же нет - нажмите на стрелочку влево, либо на кнопку "неверно". Время на игру: 60 секунд',
+  bg: 'url(https://res.cloudinary.com/rslangteam33/image/upload/v1618512469/bg_game_savanna.jpg)',
+  amountWords: 20,
+};

@@ -73,7 +73,9 @@ const GamePage: FC<IProps> = ({ Game, dataGame }: IProps) => {
   };
 
   const styles = {
-    backgroundColor: dataGame.bg,
+    background: dataGame.bg,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
   };
 
   return (

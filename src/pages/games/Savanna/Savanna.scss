@@ -1,0 +1,52 @@
+.game-background {
+    width: 100%;
+    height: 100vh;
+
+    transition: .5s linear;
+}
+
+.header {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+.main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.answer-variants {
+    display: flex;
+    background: transparent;
+    justify-content: space-between;
+}
+
+.word {
+    color: white;
+    font-size: 2rem;
+    margin: 0 10px;
+    padding: 10px 10px;
+    line-height: 2rem;
+    &:hover {
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+}
+
+.question {
+    position: absolute;
+    text-align: center;
+    left: 265px;
+    right: 0;
+    top: 10px;
+    transition: linear 5s;
+    &:hover {
+        background-color: transparent ;
+        cursor: default;
+    }
+}

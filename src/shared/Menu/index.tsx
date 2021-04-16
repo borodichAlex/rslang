@@ -34,6 +34,10 @@ const links = [
     path: '/games/wordConstructor',
     title: 'Конструктор слов',
   },
+  {
+    path: '/games/savanna',
+    title: 'Саванна',
+  },
 ];
 
 const authLinks = [
