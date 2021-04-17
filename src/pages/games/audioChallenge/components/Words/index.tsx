@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FC } from 'react';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Word from '../Word';
-import { IWordStage } from '../../audioChallenge';
+import { IWordStage } from '../..';
 import styles from './styles.module.css';
 
 type IProps = {
