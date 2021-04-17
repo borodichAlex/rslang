@@ -167,13 +167,12 @@ const Game = ({
           spacing={2}
         >
           {state.answer.map((item, index) => {
-            const key = index;
+            const key = index * Math.random();
             const cell = (
-              <Grid item xs="auto">
+              <Grid item xs="auto" key={key}>
                 <Paper
                   elevation={4}
                   color="primary"
-                  key={key * Math.random()}
                   className={classes.cells}
                 >
                   {item.value}
@@ -186,16 +185,15 @@ const Game = ({
 
         <Grid container spacing={2} className={s.letters}>
           {state.currentLetters.map((item, index) => {
-            const key = index;
+            const key = index * Math.random();
             const letter = (
-              <Grid item xs="auto">
+              <Grid item xs="auto" key={key}>
                 <Button
                   size="small"
                   className={s.letter}
                   color="primary"
                   variant="contained"
                   onClick={() => dispatch({ type: 'ADD_LETTER', payload: item })}
-                  key={key * Math.random()}
                 >
                   {item.value}
                 </Button>

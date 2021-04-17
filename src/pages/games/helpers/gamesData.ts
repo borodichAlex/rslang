@@ -1,20 +1,23 @@
+const baseUrlHost = 'https://res.cloudinary.com/rslangteam33/image/upload/v1618680130/backgrounds/';
+
 export const sprintData = {
   name: 'Спринт',
   goal: 'Цель: Повторить слова и их переводы',
   description:
     'В этой игре вам предстоит сравнивать слово на английском с его переводом на русском языке. Если слово и перевод соответствуют друг другу - нажмите стрелочку вправо либо на кнопку "верно", если же нет - нажмите на стрелочку влево, либо на кнопку "неверно". Время на игру: 60 секунд',
-  bg:
-    'url(https://res.cloudinary.com/rslangteam33/image/upload/v1618680130/backgrounds/bg_game_sprint.jpg)',
+  bg: `url(${baseUrlHost}bg_game_sprint.jpg), rgb(238, 228, 82)`,
   amountWords: 600,
 };
 
-export const dataGame = {
-  name: 'Спринт',
-  goal: 'Цель: Повторить слова и их переводы',
-  description:
-    'В этой игре вам предстоит сравнивать слово на английском с его переводом на русском языке. Если слово и перевод соответствуют друг другу - нажмите стрелочку вправо либо на кнопку "верно", если же нет - нажмите на стрелочку влево, либо на кнопку "неверно". Время на игру: 60 секунд',
-  bg: 'blue',
-  amountWords: 600,
+export const audioChallengeData = {
+  name: 'Аудиовызов',
+  goal: 'Цель: выбрать перевод слова по звучащему произношению.',
+  description: `В процессе игры звучит произношение слова на английском языке, нужно выбрать перевод слова из пяти предложенных вариантов ответа.
+          Слова можно угадывать, выбирая их как кликами мышкой, так и нажатием кнопок клавиатуры от 1 до 5.
+          Переход к следующему вопросу происходит как при клике по стрелке, так и нажатием клавиши Enter.
+          Воспроизвести произношение слова можно как при клике по кнопке "Аудио", так и нажатием клавиши R.`,
+  bg: `url(${baseUrlHost}bg_game_audioChallenge.jpg), #ffbf6d`,
+  amountWords: 50,
 };
 
 export const wordConstructorData = {
@@ -22,8 +25,7 @@ export const wordConstructorData = {
   goal: 'Цель: Собрать слово из букв',
   description:
     'В этой игре вам будет представлено слово на русском языке, вам необходимо будет собрать перевод этого слова на английском языке из предоставленных английских букв ',
-  bg:
-    'url(https://res.cloudinary.com/rslangteam33/image/upload/v1618680130/backgrounds/bg_game_word_constructor)',
+  bg: `url(${baseUrlHost}bg_game_word_constructor.jpg), rgb(54, 187, 131)`,
   amountWords: 50,
 };
 
@@ -32,7 +34,6 @@ export const savannaData = {
   goal: 'Цель: Выбрать правильный перевод слова',
   description:
     'В этой игре вам предстоит сравнивать слово на английском с его переводом на русском языке. Если слово и перевод соответствуют друг другу - нажмите стрелочку вправо либо на кнопку "верно", если же нет - нажмите на стрелочку влево, либо на кнопку "неверно". Время на игру: 60 секунд',
-  bg:
-    'url(https://res.cloudinary.com/rslangteam33/image/upload/v1618680130/backgrounds/bg_game_savanna.jpg)',
+  bg: `url(${baseUrlHost}bg_game_savanna.jpg), #c3a3c4`,
   amountWords: 20,
 };

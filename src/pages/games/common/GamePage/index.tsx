@@ -6,6 +6,7 @@ import { IWord } from '../../../../interfaces/IWord';
 import { IFnSetComplexity } from '../../interfaces/IFnSetComplexity';
 import { IDataGame } from '../../interfaces/IDataGame';
 import StatisticsGame from '../StatisticsGame';
+import Loader from '../../../../shared/Loader';
 
 export const urlBaseDataWords = 'https://raw.githubusercontent.com/borodichalex/react-rslang-be/master/';
 
@@ -34,6 +35,7 @@ export type IAnswersGame = {
 
 const GamePage: FC<IProps> = ({ Game, dataGame }: IProps) => {
   const [page, setPage] = useState(initialPage);
+  const [isLoadingDataGame, setIsLoadingDataGame] = useState(false);
 
   const [words, setWords] = useState<IWord[]>([]);
   const [complexity, setComplexity] = useState(1);
@@ -63,11 +65,15 @@ const GamePage: FC<IProps> = ({ Game, dataGame }: IProps) => {
   };
 
   const handleStartGame = () => {
+    setIsLoadingDataGame(true);
     getNumbersWords(dataGame.amountWords, complexity)
       .then((res) => {
         if (res.length >= dataGame.amountWords) {
           setWords(res);
           setPage('GAME_PAGE');
+          setTimeout(() => {
+            setIsLoadingDataGame(false);
+          }, 1000);
         }
       });
   };
@@ -80,16 +86,20 @@ const GamePage: FC<IProps> = ({ Game, dataGame }: IProps) => {
 
   return (
     <div style={styles}>
-      {(page === 'MENU_PAGE') && (
-      <PreviewGame
-        dataGame={dataGame}
-        onStart={handleStartGame}
-        isShowComplexity={isShowComplexity}
-        onSetComplexity={handleSetComplexity}
-      />
+      {isLoadingDataGame ? <Loader /> : (
+        <>
+          {(page === 'MENU_PAGE') && (
+          <PreviewGame
+            dataGame={dataGame}
+            onStart={handleStartGame}
+            isShowComplexity={isShowComplexity}
+            onSetComplexity={handleSetComplexity}
+          />
+          )}
+          {(page === 'GAME_PAGE') && <Game words={words} onSetPage={handleSetPage} onSetAnswers={handleSetAnswers} />}
+          {(page === 'STATISTICS_PAGE') && <StatisticsGame onSetPage={handleSetPage} answers={answers} />}
+        </>
       )}
-      {(page === 'GAME_PAGE') && <Game words={words} onSetPage={handleSetPage} onSetAnswers={handleSetAnswers} />}
-      {(page === 'STATISTICS_PAGE') && <StatisticsGame onSetPage={handleSetPage} answers={answers} />}
     </div>
   );
 };
