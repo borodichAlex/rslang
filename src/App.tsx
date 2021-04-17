@@ -21,6 +21,7 @@ import styles from './stylesApp.module.css';
 import checkAuthUser from './utils/checkAuthUser';
 import { RootState } from './redux/store';
 import Savanna from './pages/games/Savanna/Savanna';
+import MainPage from './pages/MainPage/MainPage';
 
 const App: FC = () => {
   const dispatch = useDispatch();
@@ -36,7 +37,10 @@ const App: FC = () => {
         <Menu />
 
         <div className={styles.content}>
-          <Route exact path="/games/audioChallenge">
+          <Route exact path="/">
+            <MainPage />
+          </Route>
+          <Route path="/games/audioChallenge">
             <GamePage Game={AudioChallenge} dataGame={DataAudioChallenge} />
           </Route>
           <Route path="/games/sprint">
