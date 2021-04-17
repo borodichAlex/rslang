@@ -1,68 +1,62 @@
-import React, { FC, useEffect } from 'react';
-import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
+import React, {
+  FC, useState, useLayoutEffect,
+} from 'react';
+import {
+  Route,
+  Switch,
+  useHistory,
+} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import GamePage from './pages/games/common/GamePage';
 import Menu from './shared/Menu';
-import {
-  Game as AudioChallenge,
-  description as DataAudioChallenge,
-} from './pages/games/audioChallenge';
-import Sprint from './pages/games/Sprint/Sprint';
-import {
-  savannaData,
-  sprintData,
-  wordConstructorData,
-} from './helpers/gamesData';
-import WordConstructor from './pages/games/wordConstructor';
+import Loader from './shared/Loader';
 import Footer from './shared/Footer/Footer';
 import TextBook from './pages/TextBook/TextBook';
 import Auth from './pages/Auth';
-import styles from './stylesApp.module.css';
-import checkAuthUser from './utils/checkAuthUser';
 import { RootState } from './redux/store';
-import Savanna from './pages/games/Savanna/Savanna';
+import checkAuthUser from './utils/checkAuthUser';
+import styles from './stylesApp.module.css';
+import Games from './pages/games';
 
 const App: FC = () => {
   const dispatch = useDispatch();
   const isAuthUser = useSelector((store: RootState) => store.user.isAuth);
 
-  useEffect(() => {
-    checkAuthUser(dispatch);
+  const [isCheckedAuth, setIsCheckedAuth] = useState(false);
+
+  const history = useHistory();
+
+  useLayoutEffect(() => {
+    checkAuthUser(dispatch).then(() => {
+      if (!isAuthUser && (
+        history.location.pathname === '/signin' || history.location.pathname === '/signup'
+        )
+      ) {
+        history.push('/');
+      }
+
+      setIsCheckedAuth(true);
+    });
   }, []);
 
-  return (
-    <Router>
-      <div className={styles.root}>
-        <Menu />
-
-        <div className={styles.content}>
-          <Route exact path="/games/audioChallenge">
-            <GamePage Game={AudioChallenge} dataGame={DataAudioChallenge} />
-          </Route>
-          <Route path="/games/sprint">
-            <GamePage dataGame={sprintData} Game={Sprint} />
-          </Route>
-          <Route path="/games/wordConstructor">
-            <GamePage dataGame={wordConstructorData} Game={WordConstructor} />
-          </Route>
-          <Route path="/games/savanna">
-            <GamePage dataGame={savannaData} Game={Savanna} />
-          </Route>
-          <Route path="/textbook">
-            <TextBook />
-          </Route>
-          {!isAuthUser ? (
-            <>
-              <Route path="/signin" component={Auth.LogIn} />
-              <Route path="/signup" component={Auth.SignUp} />
-            </>
-          ) : (
-            <Redirect to="/" />
-          )}
-          <Footer />
-        </div>
+  return (!isCheckedAuth) ? <Loader /> : (
+    <div className={styles.root}>
+      <Menu />
+      <div className={styles.content}>
+        <Switch>
+          <Route path="/games" component={Games} />
+          <Route path="/textbook" component={TextBook} />
+          {
+            !isAuthUser && (
+                <>
+                  <Route path="/signin" component={Auth.LogIn} />
+                  <Route path="/signup" component={Auth.SignUp} />
+                </>
+              )
+          }
+        </Switch>
+        <Footer />
       </div>
-    </Router>
+    </div>
   );
 };
 
