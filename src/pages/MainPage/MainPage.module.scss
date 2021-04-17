@@ -1,26 +1,31 @@
 .root {
-  // display: flex;
-  // flex-direction: column;
-  // align-items: center;
-  background: fixed url('../../assets/backgrounds/main-page_bg.jpg');
+  background: fixed url('https://res.cloudinary.com/rslangteam33/image/upload/v1618680130/backgrounds/main-page_bg_oqf8gy.jpg'), lightcyan;
   background-size: cover;
+  background-repeat: no-repeat;
+
+  position: relative;
 }
 
 .info {
-  width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  padding: 5vw;
 }
 
-.description {
-  padding-top: 100px;
-  padding-bottom: 50px;
-  width: 55%;
+.root .description {
+  text-align: justify;
+  color: rgb(36, 32, 32);
+
+  margin: 1rem;
+
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.233);
+
+  max-width: 1100px;
 }
 
 .ourTeam {
   text-decoration: underline;
+  color: rgb(66, 60, 60);
 }
