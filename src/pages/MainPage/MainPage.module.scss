@@ -1,4 +1,26 @@
 .root {
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
   background: fixed url('../../assets/backgrounds/main-page_bg.jpg');
   background-size: cover;
+}
+
+.info {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.description {
+  padding-top: 100px;
+  padding-bottom: 50px;
+  width: 55%;
+}
+
+.ourTeam {
+  text-decoration: underline;
 }
