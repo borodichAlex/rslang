@@ -17,6 +17,7 @@ import checkAuthUser from './utils/checkAuthUser';
 import styles from './stylesApp.module.css';
 import Games from './pages/games';
 import MainPage from './pages/MainPage/MainPage';
+import Statistics from './pages/StatisticsPage';
 
 const App: FC = () => {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ const App: FC = () => {
           <Route exact path="/" component={MainPage} />
           <Route path="/games" component={Games} />
           <Route path="/textbook" component={TextBook} />
+          <Route path="/statistics" component={Statistics} />
           {
             !isAuthUser && (
                 <>
@@ -56,7 +58,7 @@ const App: FC = () => {
               )
           }
         </Switch>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </div>
   );

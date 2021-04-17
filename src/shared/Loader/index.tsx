@@ -12,7 +12,7 @@ const Loader: FC = () => {
 
   return (
     <div style={style}>
-      <CircularProgress size="20" style={{width: '10vw'}} />
+      <CircularProgress size="20" style={{ width: '10vw' }} />
     </div>
   );
 };
