@@ -28,7 +28,7 @@ const teamData: ITeamData[] = [
         nickName: 'StanislavNarckevich',
         gitLink: 'https://github.com/StanislavNarckevich',
         photo: 'https://avatars.githubusercontent.com/u/54161181?v=4',
-        contribution: ['Создание и оформление игры Конструктор Слов'],
+        contribution: ['Создание и оформление игры Конструктор Слов', 'Создание и оформление главной страницы и компонента "Видео"', 'Создание видеодемонстрации приложения', 'Помощь в создании дизайна приложения'],
         teamLead: false,
     },
 

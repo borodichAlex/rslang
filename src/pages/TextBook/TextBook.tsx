@@ -9,7 +9,7 @@ import DeletedList from '../../shared/DeletedList/DeletedList';
 import InLearn from '../../shared/InLearn/InLearn';
 
 const TextBook = () => {
-    const [background, setBackground] = useState('skyblue');
+    const [background, setBackground] = useState('url(https://res.cloudinary.com/rslangteam33/image/upload/v1618680130/backgrounds/bg_game_audioChallenge_copy)');
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [textControls, setTextControls] = useState('Не отображать перевод');
     const [textTranslation, setTextTranslation] = useState('Скрыть элементы управления');
@@ -65,14 +65,26 @@ const TextBook = () => {
 
     const handleChangeBack = (group = 0) => {
         const groupN = Number(group);
-        const bgColors = ['skyblue', 'rgb(85, 151, 209)', 'lime', 'limegreen', 'rgb(238, 123, 238)', 'rgb(213, 29, 213)'];
+
+        const bgA1 = 'url(https://res.cloudinary.com/rslangteam33/image/upload/v1618680130/backgrounds/bg_game_audioChallenge_copy) fixed';
+        const bgA2 = 'url(https://res.cloudinary.com/rslangteam33/image/upload/v1618680130/backgrounds/bg_game_word_constructor) fixed';
+        const bgB1 = 'url(https://res.cloudinary.com/rslangteam33/image/upload/v1618680130/backgrounds/deers_xeb95l) fixed';
+        const bgB2 = 'url(https://res.cloudinary.com/rslangteam33/image/upload/v1618680130/backgrounds/bg_game_audioChallenge) fixed';
+        const bgC1 = 'url(https://res.cloudinary.com/rslangteam33/image/upload/v1618680130/backgrounds/bridge_dirrdn) fixed';
+        const bgC2 = 'url(https://res.cloudinary.com/rslangteam33/image/upload/v1618680130/backgrounds/bg_game_sprint) fixed';
+
+        const bgColors = [bgA1, bgA2, bgB1, bgB2, bgC1, bgC2];
         setBackground(bgColors[groupN]);
     };
 
     return (
         <div
             className={s.root}
-            style={{ backgroundColor: background }}
+            style={{
+                background,
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no repeat',
+              }}
         >
             <div className={s.header}>
                 <button

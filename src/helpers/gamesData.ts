@@ -3,7 +3,8 @@ export const sprintData = {
   goal: 'Цель: Повторить слова и их переводы',
   description:
     'В этой игре вам предстоит сравнивать слово на английском с его переводом на русском языке. Если слово и перевод соответствуют друг другу - нажмите стрелочку вправо либо на кнопку "верно", если же нет - нажмите на стрелочку влево, либо на кнопку "неверно". Время на игру: 60 секунд',
-  bg: 'blue',
+  bg:
+    'url(https://res.cloudinary.com/rslangteam33/image/upload/v1618680130/backgrounds/bg_game_sprint.jpg)',
   amountWords: 600,
 };
 
@@ -21,7 +22,8 @@ export const wordConstructorData = {
   goal: 'Цель: Собрать слово из букв',
   description:
     'В этой игре вам будет представлено слово на русском языке, вам необходимо будет собрать перевод этого слова на английском языке из предоставленных английских букв ',
-  bg: '#008000',
+  bg:
+    'url(https://res.cloudinary.com/rslangteam33/image/upload/v1618680130/backgrounds/bg_game_word_constructor)',
   amountWords: 50,
 };
 
@@ -30,6 +32,7 @@ export const savannaData = {
   goal: 'Цель: Выбрать правильный перевод слова',
   description:
     'В этой игре вам предстоит сравнивать слово на английском с его переводом на русском языке. Если слово и перевод соответствуют друг другу - нажмите стрелочку вправо либо на кнопку "верно", если же нет - нажмите на стрелочку влево, либо на кнопку "неверно". Время на игру: 60 секунд',
-  bg: 'url(https://res.cloudinary.com/rslangteam33/image/upload/v1618512469/bg_game_savanna.jpg)',
+  bg:
+    'url(https://res.cloudinary.com/rslangteam33/image/upload/v1618680130/backgrounds/bg_game_savanna.jpg)',
   amountWords: 20,
 };
