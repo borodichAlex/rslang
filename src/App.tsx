@@ -14,7 +14,6 @@ import TextBook from './pages/TextBook/TextBook';
 import Auth from './pages/Auth';
 import { RootState } from './redux/store';
 import checkAuthUser from './utils/checkAuthUser';
-import Statistics from './pages/StatisticsPage';
 import styles from './stylesApp.module.css';
 import Games from './pages/games';
 
@@ -46,7 +45,6 @@ const App: FC = () => {
         <Switch>
           <Route path="/games" component={Games} />
           <Route path="/textbook" component={TextBook} />
-          <Route path="/statistics" component={Statistics} />
           {
             !isAuthUser && (
                 <>
