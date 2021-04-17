@@ -1,5 +1,5 @@
 import React, {
- useRef, FC, useReducer, useEffect,
+ useRef, FC, useReducer,
 } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -11,13 +11,11 @@ import {
 } from 'react-router-dom';
 import { Add as AddIcon, Check as CheckIcon } from '@material-ui/icons';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { useSelector } from 'react-redux';
 import signUpReducer, { initialState } from './reducer';
 import DefaultAvatar from './default-avatar.jpeg';
 import baseUrl from '../../../../helpers/baseUrl';
 import styles from '../../styles.module.css';
 import { signUpFail, signUpRequest, signUpSuccess } from './actions';
-import { RootState } from '../../../../redux/store';
 
 const validationSchema = Yup.object({
   name: Yup
@@ -89,8 +87,6 @@ const SignUp: FC = () => {
 
   const history = useHistory();
 
-  const isAuthUser = useSelector((store: RootState) => store.user.isAuth);
-
   const [loadingImage, setLoadingImage] = React.useState(false);
   const [successLoading, setSuccessLoading] = React.useState(false);
 
@@ -144,7 +140,7 @@ const SignUp: FC = () => {
               variant="contained"
               style={{ whiteSpace: 'nowrap' }}
               component={RouterLink}
-              to={{ pathname: '/login' }}
+              to={{ pathname: '/signin' }}
               onClick={() => history.push('/')}
             >
               Авторизоваться
