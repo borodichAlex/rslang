@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { IconButton } from '@material-ui/core';
+import { CircularProgress, IconButton } from '@material-ui/core';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import s from './Sprint.module.scss';
 import Check from '../../../assets/Check.png';
@@ -194,6 +194,11 @@ const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
         }
         return content;
     };
+    const colorPerSec = 255 / 30;
+    const red = countDown > 30 ? Math.abs(countDown - 60) * colorPerSec : 255;
+    const green = countDown < 30 ? countDown * colorPerSec : 255;
+
+    const colorS = `rgb(${red}, ${green}, 0)`;
 
     return (
         <div className={s.root}>
@@ -220,7 +225,12 @@ const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
                         + {factor * 10} очков за слово
                     </span>
                 </div>
-                <div className={s.timer}>{countDown}</div>
+                <div className={s.timer} style={{color: colorS}}>
+                    <CircularProgress variant="determinate" value={Math.round(countDown * 1.6666666)} color="inherit" />
+                    <div className={s.timerValue}>
+                        {countDown}
+                    </div>
+                </div>
                 <span className={s.word}>
                     {word || ''}
                 </span>

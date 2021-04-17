@@ -1,26 +1,48 @@
 /* eslint-disable react/no-danger */
 import React, { useEffect, useReducer, useState } from 'react';
 import s from './InLearn.module.scss';
-import Star from '../../assets/Star.png';
-import ActiveStar from '../../assets/ActiveStar.png';
-import Basket from '../../assets/Basket.png';
+import CheckMark from '../../assets/CheckMark.png';
 import { IWord } from '../../interfaces/IWord';
-import getWords from '../../helpers/getWords';
 import Word from '../Word/Word';
+import authorizedRequest from '../../utils/AuthorizedRequest';
+import baseUrl from '../../helpers/baseUrl';
+import { getUserId } from '../../utils/UserUtils';
+import getData from '../../helpers/getData';
+
+const userId = getUserId();
 
 const InLearn = () => {
     const [data, setData] = useState<IWord[] | []>([]);
     const [deleted, setDeleted] = useState<string[]>([]);
-    const [marked, setMarked] = useState<string[]>([]);
+    const [ids, setIds] = useState([]);
     const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
 
     useEffect(() => {
-        getWords(0, 0)
+        authorizedRequest(`${baseUrl}/users/${userId}/words?type=inlearn`)
+        .then((res) => {
+            console.log('###', res);
+            const arr = res.map((item: any) => item.wordId);
+            setIds(arr);
+        });
+    }, []);
+
+    useEffect(() => {
+        ids.map((id) => {
+            getData(id)
             .then((res) => {
-                const newData = res.filter((item) => !deleted.includes(item.id));
-                setData(newData);
+                const newArr: any = data;
+                newArr.push(res);
+                setData(newArr);
+                forceUpdate();
             });
-    }, [ignored]);
+        });
+    }, [ids]);
+
+    const handleLearned = (id: string) => {
+        authorizedRequest(`${baseUrl}/users/${userId}/words/${id}?type=inlearn`, null, 'DELETE');
+        const newArr = data.filter((item) => item.id !== id);
+        setData(newArr);
+    };
 
     return (
         <div className={s.page}>
@@ -35,30 +57,10 @@ const InLearn = () => {
                         >
                             <button
                                 type="button"
-                                className={s.star_button}
-                                onClick={() => {
-                                    let newMarked = marked;
-                                    marked.includes(item.id)
-                                        ? (newMarked = newMarked
-                                            .filter((mark) => mark !== item.id))
-                                        : newMarked.push(item.id);
-                                    setMarked(newMarked);
-                                    forceUpdate();
-                                }}
-                            >
-                                <img src={marked.includes(item.id) ? ActiveStar : Star} alt={true ? 'saved' : 'Save'} />        {/* условие, проверяющее наличие слова в сохранённых */}
-                            </button>
-                            <button
-                                type="button"
                                 className={s.basket_button}
-                                onClick={() => {
-                                    const newArr = deleted;
-                                    newArr.push(item.id);
-                                    setDeleted(newArr);
-                                    forceUpdate();
-                                }}
+                                onClick={() => handleLearned(item.id)}
                             >
-                                <img src={Basket} alt="Delete" />
+                                <img src={CheckMark} alt="Learned" />
                             </button>
                         </div>
                             <Word item={item} index={index} />

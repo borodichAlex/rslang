@@ -1,5 +1,5 @@
 .root {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     display: flex;
     flex-direction: row;
@@ -21,19 +21,19 @@
 }
 
 .content {
-    position: absolute;
-    left: auto;
-    right: auto;
+    position: fixed;
+    left: 0;
     bottom: 0;
     
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
 
     overflow-x: hidden;
     overflow: hidden;
 
-    background: linear-gradient(to bottom, rgb(243, 106, 241), rgb(251, 237, 34) 45px);
+    background: linear-gradient(to bottom, rgb(172, 172, 172), 2px, rgba(251, 236, 34, 0) 45px);
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 
@@ -51,7 +51,7 @@
 }
 
 .toggle {
-    position: absolute;
+    position: fixed;
     left: auto;
     right: auto;
     bottom: 0;
@@ -75,6 +75,15 @@
     transition: all 2s;
     opacity: 1;
     height: 80px;
+}
+
+@media (max-width: 500px) {
+    .toggle:active ~ .content {
+        visibility: unset;
+        transition: all 2s;
+        opacity: 1;
+        height: 80px;
+    }
 }
 
 .members {
