@@ -82,7 +82,7 @@ const Word = ({ item, index }: IListWord) => {
                                 </button>
                             </div>
                             <div
-                                style={{ marginLeft: '15px'}}
+                                style={{ marginLeft: '15px' }}
                                 className={JSON.parse(localStorage.getItem('showTranslation') || 'true')
                                     ? s.text
                                     : s.hidden}

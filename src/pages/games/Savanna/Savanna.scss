@@ -1,6 +1,8 @@
 .game-background {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
+    position: relative;
+    overflow-y: hidden;
 
     transition: .5s linear;
 }
@@ -10,31 +12,40 @@
     display: flex;
     justify-content: flex-end;
 }
+
 .main {
     width: 100%;
-    height: 100%;
+    min-height: 90vh;
     display: flex;
-    overflow: hidden;
+    overflow-y: hidden;
     justify-content: center;
     align-items: center;
 }
 
-
 .answer-variants {
     display: flex;
-    background: transparent;
+    background-color: transparent;
     justify-content: space-between;
 }
 
+@media (max-width: 750px) {
+    .answer-variants {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
 .word {
-    color: white;
+    color: rgb(255, 149, 87);
     font-size: 2rem;
     margin: 0 10px;
     padding: 10px 10px;
     line-height: 2rem;
+    border-radius: 10px;
+
     &:hover {
         cursor: pointer;
-        background-color: rgba(255, 255, 255, 0.3);
+        background-color: rgba(252, 232, 232, 0.315);
     }
 }
 
@@ -49,4 +60,22 @@
         background-color: transparent ;
         cursor: default;
     }
+}
+
+.hearts {
+    position: absolute;
+    top: 3em;
+    right: 1em;
+}
+
+.game-background .btn-exit {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+}
+
+.btn-fullScreen {
+    position: absolute;
+    top: 1em;
+    left: 1em;
 }

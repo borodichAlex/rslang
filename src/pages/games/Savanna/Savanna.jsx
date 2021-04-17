@@ -1,14 +1,14 @@
-import React, {useEffect, useState, useCallback} from 'react';
-import getWords from '../../../helpers/getWords';
+import React, { useEffect, useState } from 'react';
+import IconButton from '@material-ui/core/IconButton';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import './Savanna.scss';
 import { withStyles } from '@material-ui/core/styles';
 import { Rating } from '@material-ui/lab';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Error from '../../../assets/Error.mp3';
 import Correct from '../../../assets/Correct.mp3';
+import ToggleFullScreen from '../common/ToggleFullScreen';
 
-const correctAnswers = [];
-const wrongAnswers = [];
 const excludeWords = [];
 const WINDOW_HEIGHT = window.innerHeight;
 const audioCorrect = new Audio(Correct);
@@ -25,12 +25,14 @@ const StyledRating = withStyles({
   })(Rating);
 
 
-const Savanna = ({words, onSetAnswers}) => {
+const Savanna = ({words, onSetAnswers, onSetPage}) => {
     const [backgroundPosY, setbBackgroundPosY] = useState(98);
     const [questionPosY, setQuestionPosY] = useState(10);
     const [currentWords, setCurrentWords] = useState([]);
     const [currentWord, setCurrentWord] = useState(null);
     const [lives, setLives] = useState(5);
+    const [correctAnswers, setCorrectAnswers] = useState([]);
+    const [wrongAnswers, setWrongAnswers] = useState([]);
     let timeout = null;
     let questionTimeout = null;
 
@@ -77,7 +79,7 @@ const Savanna = ({words, onSetAnswers}) => {
         eventWorked = true;
         excludeWords.push(currentWord);
         if(timeout) {
-            wrongAnswers.push(currentWord.id);
+            setWrongAnswers((answers) => [...answers, currentWord.id]);
             setLives(lives => lives - 1);
             audioWrong.play();
             setQuestionPosY(WINDOW_HEIGHT);
@@ -87,11 +89,11 @@ const Savanna = ({words, onSetAnswers}) => {
             setQuestionPosY(WINDOW_HEIGHT);
             const answerWord = currentWords[+answer - 1]?.word;
             if(answerWord === currentWord.word) {
-                correctAnswers.push(currentWord.id)
+                setCorrectAnswers((answers) => [...answers, currentWord.id]);
                 audioCorrect.play();
                 setbBackgroundPosY(currPos => currPos < 4 ? 0 : currPos - 5);
             } else {
-                wrongAnswers.push(currentWord.id);
+                setWrongAnswers((answers) => [...answers, currentWord.id]);
                 audioWrong.play();
                 setLives(lives => lives - 1);
             }
@@ -132,6 +134,10 @@ const Savanna = ({words, onSetAnswers}) => {
         return result;
     }
 
+    const handleExit = () => {
+        onSetPage('MENU_PAGE');
+    };
+
     if(!words) return <div>Loading...</div>
 
     const questionStyle = {
@@ -144,6 +150,7 @@ const Savanna = ({words, onSetAnswers}) => {
         <div className="game-background" style={{backgroundPositionY: `${backgroundPosY}%`}}>
             <div className="header">
                 <StyledRating
+                    className="hearts"
                     name="customized-color"
                     defaultValue={5}
                     getLabelText={(value) => `${value} Heart${value !== 1 ? 's' : ''}`}
@@ -164,6 +171,16 @@ const Savanna = ({words, onSetAnswers}) => {
                 </div>
             </div>
             <div className="word question" style={questionStyle}>{currentWord?.word}</div>
+            <IconButton
+                className="btn-exit"
+                aria-label="exit"
+                onClick={handleExit}
+            >
+                <HighlightOffIcon fontSize="large" />
+            </IconButton>
+            <div className="btn-fullScreen">
+                <ToggleFullScreen />
+            </div>
         </div>
     );
 };
