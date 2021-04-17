@@ -16,6 +16,7 @@ import { RootState } from './redux/store';
 import checkAuthUser from './utils/checkAuthUser';
 import styles from './stylesApp.module.css';
 import Games from './pages/games';
+import MainPage from './pages/MainPage/MainPage';
 import Statistics from './pages/StatisticsPage';
 
 const App: FC = () => {
@@ -44,6 +45,7 @@ const App: FC = () => {
       <Menu />
       <div className={styles.content}>
         <Switch>
+          <Route exact path="/" component={MainPage} />
           <Route path="/games" component={Games} />
           <Route path="/textbook" component={TextBook} />
           <Route path="/statistics" component={Statistics} />
