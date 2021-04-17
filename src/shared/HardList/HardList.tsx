@@ -3,20 +3,47 @@ import React, { useEffect, useReducer, useState } from 'react';
 import ActiveStar from '../../assets/ActiveStar.png';
 import { IWord } from '../../interfaces/IWord';
 import s from './HardList.module.scss';
-import getWords from '../../helpers/getWords';
+// import getWords from '../../helpers/getWords';
 import Word from '../Word/Word';
+import authorizedRequest from '../../utils/AuthorizedRequest';
+import baseUrl from '../../helpers/baseUrl';
+import { getUserId } from '../../utils/UserUtils';
+import getData from '../../helpers/getData';
+
+const userId = getUserId();
 
 const HardList = () => {
     const [data, setData] = useState<IWord[] | []>([]);
+    const [ids, setIds] = useState([]);
     const [marked, setMarked] = useState<string[]>([]);
     const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
 
     useEffect(() => {
-        getWords(0, 0)
-            .then((res) => {
-                setData(res);
-            });
+        authorizedRequest(`${baseUrl}/users/${userId}/words?type=difficult`)
+        .then((res) => {
+            console.log('###', res);
+            const arr = res.map((item: any) => item.wordId);
+            setIds(arr);
+        });
     }, []);
+
+    useEffect(() => {
+        ids.map((id) => {
+            getData(id)
+            .then((res) => {
+                const newArr: any = data;
+                newArr.push(res);
+                setData(newArr);
+                forceUpdate();
+            });
+        });
+    }, [ids]);
+
+    const unsaveWord = (id: string) => {
+        authorizedRequest(`${baseUrl}/users/${userId}/words/${id}?type=difficult`, null, 'DELETE');
+        const newArr = data.filter((item) => item.id !== id);
+        setData(newArr);
+    };
 
     return (
         <div className={s.page}>
@@ -32,15 +59,7 @@ const HardList = () => {
                                 <button
                                     type="button"
                                     className={s.star_button}
-                                    onClick={() => {
-                                        let newMarked = marked;
-                                        marked.includes(item.id)
-                                            ? (newMarked = newMarked
-                                                .filter((mark) => mark !== item.id))
-                                            : newMarked.push(item.id);
-                                        setMarked(newMarked);
-                                        forceUpdate();
-                                    }}
+                                    onClick={() => unsaveWord(item.id)}
                                 >
                                     <img src={ActiveStar} alt="UnSave" />
                                 </button>

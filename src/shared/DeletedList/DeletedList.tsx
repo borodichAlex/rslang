@@ -3,18 +3,45 @@ import React, { useEffect, useReducer, useState } from 'react';
 import Restore from '../../assets/Restore.png';
 import { IWord } from '../../interfaces/IWord';
 import s from './DeletedList.module.scss';
-import getWords from '../../helpers/getWords';
 import Word from '../Word/Word';
+import authorizedRequest from '../../utils/AuthorizedRequest';
+import { getUserId } from '../../utils/UserUtils';
+import baseUrl from '../../helpers/baseUrl';
+import getData from '../../helpers/getData';
+
+const userId = getUserId();
 
 const DeletedList = () => {
     const [data, setData] = useState<IWord[] | []>([]);
+    const [ids, setIds] = useState([]);
+    const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
 
     useEffect(() => {
-        getWords(0, 0)
-            .then((res) => {
-                setData(res);
-            });
+        authorizedRequest(`${baseUrl}/users/${userId}/words?type=deleted`)
+        .then((res) => {
+            console.log('###', res);
+            const arr = res.map((item: any) => item.wordId);
+            setIds(arr);
+        });
     }, []);
+
+    useEffect(() => {
+        ids.map((id) => {
+            getData(id)
+            .then((res) => {
+                const newArr: any = data;
+                newArr.push(res);
+                setData(newArr);
+                forceUpdate();
+            });
+        });
+    }, [ids]);
+
+    const restoreWord = (id: string) => {
+        authorizedRequest(`${baseUrl}/users/${userId}/words/${id}?type=deleted`, null, 'DELETE');
+        const newArr = data.filter((item) => item.id !== id);
+        setData(newArr);
+    };
 
     return (
         <div className={s.page}>
@@ -32,6 +59,7 @@ const DeletedList = () => {
                                     className={s.restore_button}
                                     onClick={() => {
                                         console.log('Restore Word');
+                                        restoreWord(item.id);
                                     }}
                                 >
                                     <img src={Restore} alt="Restore" />

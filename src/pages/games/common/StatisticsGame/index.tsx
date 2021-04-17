@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import {
   Typography, List, ListItem, ListItemIcon, ListItemText, Button,
 } from '@material-ui/core';
@@ -6,6 +6,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import { IWordsStatistics, urlBaseDataWords } from '../GamePage';
 import { IWord } from '../../../../interfaces/IWord';
+import authorizedRequest from '../../../../utils/AuthorizedRequest';
+import baseUrl from '../../../../helpers/baseUrl';
+import { getUserId } from '../../../../utils/UserUtils';
 
 type IFnPlayAudio = (url: string) => void;
 
@@ -88,7 +91,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Word = ({ word, onPlayAudio }: {word: IWord, onPlayAudio: IFnPlayAudio}) => {
+const Word = ({ word, onPlayAudio }: { word: IWord, onPlayAudio: IFnPlayAudio }) => {
   const text = `${(word.word)[0].toUpperCase() + word.word.slice(1)} — ${word.wordTranslate}`;
   const classes = useStyles();
   return (
@@ -132,7 +135,28 @@ type IProps = {
   onSetPage: (page: string) => void;
 }
 
+const userId = getUserId();
+
 const StatisticsGame: FC<IProps> = ({ answers, onSetPage }: IProps) => {
+  useEffect(() => {
+    console.log('answers', answers.listWrong);
+    authorizedRequest(`${baseUrl}/users/${userId}/words?type=inlearn`)
+      .then((res) => {
+        console.log('###', res);
+        const arr = res.map((item: any) => item.wordId);
+        handleInLearn(arr);
+      });
+  }, []);
+
+  const handleInLearn = (arr: any) => {
+    const wrongIDs = answers.listWrong.filter((item) => !arr.includes(item.id));
+    wrongIDs.map((item) => {
+      authorizedRequest(`${baseUrl}/users/${userId}/words/${item.id}`, JSON.stringify({
+        type: 'inlearn',
+      }), 'POST');
+    });
+  };
+
   const audioNode = new Audio();
 
   const handlePlayAudio: IFnPlayAudio = (audioUrl) => {

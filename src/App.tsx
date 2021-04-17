@@ -58,7 +58,7 @@ const App: FC = () => {
               )
           }
         </Switch>
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </div>
   );

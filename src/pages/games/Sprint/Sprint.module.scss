@@ -107,7 +107,7 @@
 .timer {
   position: absolute;
   right: 0px;
-  top: -35px;
+  top: -45px;
 
   color: #2c3636;
 
@@ -116,6 +116,14 @@
 
   height: 36px;
   width: 36px;
+}
+
+.timerValue {
+  position: absolute;
+  top: 2px;
+  left: 1px;
+  right: 0;
+  color: rgb(30, 30, 30);
 }
 
 .word {
