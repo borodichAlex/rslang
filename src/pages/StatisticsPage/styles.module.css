@@ -1,15 +1,55 @@
 .root {
-  background-color: yellowgreen;
+  background: url('https://res.cloudinary.com/rslangteam33/image/upload/v1618680130/backgrounds/fox_zy7xa2'), lightcyan;
   min-width: 100%;
   min-height: 100vh;
 
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color:rgb(255, 128, 128);
+}
+
+.content {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  background-color: rgb(253, 202, 202);
+
+  padding: 1rem;
+  border-radius: 10px;
+
+  margin: 1rem;
 }
 
 .block {
   border-radius: .5rem;
   background: linear-gradient(to right bottom,rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
-  filter: blur(2rem);
+
+  padding: 15px;
+
+  display: flex;
+
+  flex-direction: column;
+}
+
+.mainHeading {
+  margin-bottom: 1rem;
+}
+
+.heading {
+  text-align: center;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .5rem;
+
+  margin: 1rem 0;
 }

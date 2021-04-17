@@ -31,9 +31,11 @@ const Statistics: FC<IProps> = () => {
 
   return (
     <div className={styles.root}>
-      <Typography variant="h2" component="h2" color="initial">Статистика</Typography>
-      <ShortStatistics data={dataShort} />
-      {/* <LongStatistics data={dataLong} /> */}
+      <div className={styles.content}>
+        <Typography variant="h2" component="h2" color="initial" className={styles.mainHeading}>Статистика</Typography>
+        <ShortStatistics data={dataShort} />
+        {/* <LongStatistics data={dataLong} /> */}
+      </div>
     </div>
   );
 };
