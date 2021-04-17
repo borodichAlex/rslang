@@ -23,6 +23,10 @@ const Avatar = ({ urlImg, name }: {urlImg: string, name: string}) => (
 
 const links = [
   {
+    path: '/',
+    title: 'Главная',
+  },
+  {
     path: '/games/sprint',
     title: 'Спринт',
   },
