@@ -60,12 +60,13 @@
 }
 
 .contributionList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
   height: 150px;
   overflow-y: auto;
-}
 
-.contributionList > li {
-  width: 325px;
+  margin: 10px;
 }
 
 .contributionList::-webkit-scrollbar-track
