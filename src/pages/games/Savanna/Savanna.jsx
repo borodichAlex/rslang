@@ -9,7 +9,7 @@ import Error from '../../../assets/Error.mp3';
 import Correct from '../../../assets/Correct.mp3';
 import ToggleFullScreen from '../common/ToggleFullScreen';
 
-const excludeWords = [];
+let excludeWords = [];
 const WINDOW_HEIGHT = window.innerHeight;
 const audioCorrect = new Audio(Correct);
 const audioWrong = new Audio(Error);
@@ -24,7 +24,7 @@ const StyledRating = withStyles({
     },
   })(Rating);
 
-
+const bg = 'url(https://res.cloudinary.com/rslangteam33/image/upload/v1618680130/backgrounds/bg_game_savanna.jpg)';
 const Savanna = ({words, onSetAnswers, onSetPage}) => {
     const [backgroundPosY, setbBackgroundPosY] = useState(98);
     const [questionPosY, setQuestionPosY] = useState(10);
@@ -109,12 +109,8 @@ const Savanna = ({words, onSetAnswers, onSetPage}) => {
             listCorrect: correctAnswers,
             listWrong: wrongAnswers,
         });
+        excludeWords = [];
     }
-
-    // const handleIncorrect = () => {
-    //     const arr = wrongAnswers;
-    //     arr.push(currentId);
-    // }
 
     const getRandomWords = () => {
         const result = [];
@@ -147,7 +143,7 @@ const Savanna = ({words, onSetAnswers, onSetPage}) => {
     else if(questionPosY === WINDOW_HEIGHT) questionStyle.transition = "linear 1s"
 
     return (
-        <div className="game-background" style={{backgroundPositionY: `${backgroundPosY}%`}}>
+        <div className="game-background" style={{background: bg, backgroundPositionY: `${backgroundPosY}%`}}>
             <div className="header">
                 <StyledRating
                     className="hearts"
@@ -179,7 +175,7 @@ const Savanna = ({words, onSetAnswers, onSetPage}) => {
                 <HighlightOffIcon fontSize="large" />
             </IconButton>
             <div className="btn-fullScreen">
-                <ToggleFullScreen />
+                <ToggleFullScreen/>
             </div>
         </div>
     );

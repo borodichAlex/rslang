@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
     "env": {
         "browser": true,
         "es2021": true
@@ -71,64 +70,4 @@
         "react/jsx-indent": "off",
         "react/jsx-indent-props": "off"
     }
-=======
-    // "env": {
-    //     "browser": true,
-    //     "es2021": true
-    // },
-    // "extends": [
-    //     "react-app",
-    //     "react-app/jest",
-    //     "plugin:@typescript-eslint/recommended",
-    //     "plugin:react-hooks/recommended",
-    //     "plugin:react/recommended",
-    //     "airbnb"
-    // ],
-    // "parser": "@typescript-eslint/parser",
-    // "parserOptions": {
-    //     "ecmaFeatures": {
-    //         "jsx": true
-    //     },
-    //     "ecmaVersion": 12,
-    //     "sourceType": "module"
-    // },
-    // "plugins": [
-    //     "react",
-    //     "@typescript-eslint"
-    // ],
-    // "settings": {
-    //     "import/resolver": {
-    //         "typescript": {}
-    //     }
-    // },
-    // "rules": {
-    //     "linebreak-style": "off",
-    //     // note you must disable the base rule as it can report incorrect errors
-    //     "no-use-before-define": "off",
-    //     "@typescript-eslint/no-use-before-define": ["error"],
-    //     "react/jsx-filename-extension": [ "warn", {"extensions": [".tsx"]} ], // Problem: “‘react/jsx-filename-extension”
-    //     // Problem: eslint missing file extension ts
-    //     "import/extensions": [
-    //         "error",
-    //         "ignorePackages",
-    //         {
-    //             "js": "never",
-    //             "jsx": "never",
-    //             "ts": "never",
-    //             "tsx": "never"
-    //         }
-    //     ],
-    //     "object-curly-spacing": ["warn", "always"],
-    //     "no-unused-vars": [
-    //         "warn",
-    //         {
-    //             "vars": "all",
-    //             "args": "none"
-    //         }
-    //     ],
-    //     "indent": "off",
-    //     "react/jsx-indent": "off",
-    //     "react/jsx-indent-props": "off"
-    // }
->>>>>>> 156b754 (Added savanna component.)
 }

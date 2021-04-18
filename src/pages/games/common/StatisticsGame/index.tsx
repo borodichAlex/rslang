@@ -4,11 +4,13 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
+import { useLocation } from 'react-router-dom';
 import { IWordsStatistics, urlBaseDataWords } from '../GamePage';
 import { IWord } from '../../../../interfaces/IWord';
 import authorizedRequest from '../../../../utils/AuthorizedRequest';
 import baseUrl from '../../../../helpers/baseUrl';
 import { getUserId } from '../../../../utils/UserUtils';
+import { setStatisticsUser } from '../../../../utils/requestsStatistics';
 
 type IFnPlayAudio = (url: string) => void;
 
@@ -135,27 +137,31 @@ type IProps = {
   onSetPage: (page: string) => void;
 }
 
-const userId = getUserId();
+const handleInLearn = (arr: any, answers: IWordsStatistics, userId: string) => {
+  const wrongIDs = answers.listWrong.filter((item) => !arr.includes(item.id));
+  wrongIDs.map((item) => {
+    authorizedRequest(`${baseUrl}/users/${userId}/words/${item.id}`, JSON.stringify({
+      type: 'inlearn',
+    }), 'POST');
+  });
+};
 
 const StatisticsGame: FC<IProps> = ({ answers, onSetPage }: IProps) => {
+  const location = useLocation();
   useEffect(() => {
-    console.log('answers', answers.listWrong);
-    authorizedRequest(`${baseUrl}/users/${userId}/words?type=inlearn`)
-      .then((res) => {
-        console.log('###', res);
-        const arr = res.map((item: any) => item.wordId);
-        handleInLearn(arr);
-      });
-  }, []);
+    const userId = getUserId();
+    if (userId) {
+      console.log('answers', answers.listWrong);
+      authorizedRequest(`${baseUrl}/users/${userId}/words?type=inlearn`)
+        .then((res) => {
+          console.log('###', res);
+          const arr = res.map((item: any) => item.wordId);
+          handleInLearn(arr, answers, userId);
+        });
 
-  const handleInLearn = (arr: any) => {
-    const wrongIDs = answers.listWrong.filter((item) => !arr.includes(item.id));
-    wrongIDs.map((item) => {
-      authorizedRequest(`${baseUrl}/users/${userId}/words/${item.id}`, JSON.stringify({
-        type: 'inlearn',
-      }), 'POST');
-    });
-  };
+      setStatisticsUser(userId, answers);
+    }
+  }, []);
 
   const audioNode = new Audio();
 
