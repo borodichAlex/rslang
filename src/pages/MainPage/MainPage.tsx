@@ -32,7 +32,7 @@ const MainPage = () => {
         Изучай английский с удовольствием!
         </Typography>
 
-        <Video url="f4ioMGDQblI" />
+        <Video url="HAr6_hjiDk0" />
 
         <Typography variant="h2" component="h3" className={s.ourTeam}>
           Наша команда
