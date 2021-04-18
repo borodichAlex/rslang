@@ -225,7 +225,7 @@ const Sprint = ({ words, onSetPage, onSetAnswers }: IProps) => {
                         + {factor * 10} очков за слово
                     </span>
                 </div>
-                <div className={s.timer} style={{color: colorS}}>
+                <div className={s.timer} style={{ color: colorS }}>
                     <CircularProgress variant="determinate" value={Math.round(countDown * 1.6666666)} color="inherit" />
                     <div className={s.timerValue}>
                         {countDown}

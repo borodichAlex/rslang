@@ -19,12 +19,7 @@ type IProps = {
 };
 
 const Statistics: FC<IProps> = () => {
-  console.log('Statistics');
-
   const history = useHistory();
-  console.log({ history });
-  console.log(history.location);
-
   useEffect(() => {
     history.push(history.location.pathname);
   }, []);

@@ -11,8 +11,9 @@ const getWords = async (complexity: number, page: number) => {
 export const getNumbersWords = async (amount: number, complexity: number):Promise<IWord[]> => {
   const baseAmountWords = 20;
   const prepareArr = [];
+
   for (let i = 0; i < Math.ceil(amount / baseAmountWords); i += 1) {
-    const page = i;
+    const page = Math.floor(Math.random() * 20);
     prepareArr.push(getWords(complexity, page));
   }
 
