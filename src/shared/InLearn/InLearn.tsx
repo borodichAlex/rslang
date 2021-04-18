@@ -9,8 +9,6 @@ import baseUrl from '../../helpers/baseUrl';
 import { getUserId } from '../../utils/UserUtils';
 import getData from '../../helpers/getData';
 
-const userId = getUserId();
-
 const InLearn = () => {
     const [data, setData] = useState<IWord[] | []>([]);
     const [deleted, setDeleted] = useState<string[]>([]);
@@ -18,7 +16,7 @@ const InLearn = () => {
     const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
 
     useEffect(() => {
-        authorizedRequest(`${baseUrl}/users/${userId}/words?type=inlearn`)
+        authorizedRequest(`${baseUrl}/users/${getUserId()}/words?type=inlearn`)
         .then((res) => {
             console.log('###', res);
             const arr = res.map((item: any) => item.wordId);
@@ -39,7 +37,7 @@ const InLearn = () => {
     }, [ids]);
 
     const handleLearned = (id: string) => {
-        authorizedRequest(`${baseUrl}/users/${userId}/words/${id}?type=inlearn`, null, 'DELETE');
+        authorizedRequest(`${baseUrl}/users/${getUserId()}/words/${id}?type=inlearn`, null, 'DELETE');
         const newArr = data.filter((item) => item.id !== id);
         setData(newArr);
     };

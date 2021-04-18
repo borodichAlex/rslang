@@ -9,17 +9,14 @@ import { getUserId } from '../../utils/UserUtils';
 import baseUrl from '../../helpers/baseUrl';
 import getData from '../../helpers/getData';
 
-const userId = getUserId();
-
 const DeletedList = () => {
     const [data, setData] = useState<IWord[] | []>([]);
     const [ids, setIds] = useState([]);
     const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
 
     useEffect(() => {
-        authorizedRequest(`${baseUrl}/users/${userId}/words?type=deleted`)
+        authorizedRequest(`${baseUrl}/users/${getUserId()}/words?type=deleted`)
         .then((res) => {
-            console.log('###', res);
             const arr = res.map((item: any) => item.wordId);
             setIds(arr);
         });
@@ -38,7 +35,7 @@ const DeletedList = () => {
     }, [ids]);
 
     const restoreWord = (id: string) => {
-        authorizedRequest(`${baseUrl}/users/${userId}/words/${id}?type=deleted`, null, 'DELETE');
+        authorizedRequest(`${baseUrl}/users/${getUserId()}/words/${id}?type=deleted`, null, 'DELETE');
         const newArr = data.filter((item) => item.id !== id);
         setData(newArr);
     };

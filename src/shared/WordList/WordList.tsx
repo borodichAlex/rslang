@@ -23,8 +23,6 @@ const getData = async (url: string) => {
     return res;
 };
 
-const userId = getUserId();
-
 const WordList = ({ handleChangeBack }: IWordList) => {
     const [data, setData] = useState<IWord[] | []>([]);
     const [loaded, setLoaded] = useState(false);
@@ -39,6 +37,7 @@ const WordList = ({ handleChangeBack }: IWordList) => {
     const history = useHistory();
 
     useEffect(() => {
+        const userId = getUserId();
         handleChangeBack(groupPath);
         authorizedRequest(`${baseUrl}/users/${userId}/words?type=deleted`)
             .then((res) => {
@@ -75,7 +74,7 @@ const WordList = ({ handleChangeBack }: IWordList) => {
         newArr.push(id);
         setDeleted(newArr);
         forceUpdate();
-        const res = await authorizedRequest(`${baseUrl}/users/${userId}/words/${id}`, JSON.stringify({
+        const res = await authorizedRequest(`${baseUrl}/users/${getUserId()}/words/${id}`, JSON.stringify({
             type: 'deleted',
         }), 'POST');
     };
@@ -86,11 +85,11 @@ const WordList = ({ handleChangeBack }: IWordList) => {
             newArr.push(id);
             setMarked(newArr);
             forceUpdate();
-            const res = await authorizedRequest(`${baseUrl}/users/${userId}/words/${id}`, JSON.stringify({
+            const res = await authorizedRequest(`${baseUrl}/users/${getUserId()}/words/${id}`, JSON.stringify({
                 type: 'difficult',
             }), 'POST');
         } else {
-            authorizedRequest(`${baseUrl}/users/${userId}/words/${id}?type=difficult`, null, 'DELETE');
+            authorizedRequest(`${baseUrl}/users/${getUserId()}/words/${id}?type=difficult`, null, 'DELETE');
             const newArr = marked.filter((item) => item !== id);
             setMarked(newArr);
         }

@@ -52,8 +52,7 @@
 .question {
     position: absolute;
     text-align: center;
-    left: 265px;
-    right: 0;
+    left: calc(50% - 3rem);
     top: 10px;
     transition: linear 5s;
     &:hover {

@@ -10,8 +10,6 @@ import baseUrl from '../../helpers/baseUrl';
 import { getUserId } from '../../utils/UserUtils';
 import getData from '../../helpers/getData';
 
-const userId = getUserId();
-
 const HardList = () => {
     const [data, setData] = useState<IWord[] | []>([]);
     const [ids, setIds] = useState([]);
@@ -19,7 +17,7 @@ const HardList = () => {
     const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
 
     useEffect(() => {
-        authorizedRequest(`${baseUrl}/users/${userId}/words?type=difficult`)
+        authorizedRequest(`${baseUrl}/users/${getUserId()}/words?type=difficult`)
         .then((res) => {
             console.log('###', res);
             const arr = res.map((item: any) => item.wordId);
@@ -40,7 +38,7 @@ const HardList = () => {
     }, [ids]);
 
     const unsaveWord = (id: string) => {
-        authorizedRequest(`${baseUrl}/users/${userId}/words/${id}?type=difficult`, null, 'DELETE');
+        authorizedRequest(`${baseUrl}/users/${getUserId()}/words/${id}?type=difficult`, null, 'DELETE');
         const newArr = data.filter((item) => item.id !== id);
         setData(newArr);
     };
