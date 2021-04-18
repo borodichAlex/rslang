@@ -21,7 +21,7 @@ const teamData: ITeamData[] = [
         nickName: 'Nickomo',
         gitLink: 'https://github.com/Nickomo',
         photo: 'https://cutt.ly/YcUc6gI',
-        contribution: ['Создание и оформление игры Саванна'],
+        contribution: ['Создание и оформление игры Саванна', 'Реализация словаря на бэкенде', 'Реализация стастистики на бэкенде', 'Помощь с регистрацией на бэкенде', 'Помощь в создании учебника'],
         teamLead: false,
     },
     {
