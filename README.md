@@ -12,3 +12,4 @@
 
 ### Link to the demo [https://rslang-team-33-borodichalex.netlify.app/](https://rslang-team-33-borodichalex.netlify.app/)
 
+Used libraries: React, Material UI.
