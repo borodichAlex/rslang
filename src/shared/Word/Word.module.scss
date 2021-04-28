@@ -96,3 +96,9 @@
 .wordBlock:hover {
     box-shadow: 5px 5px 10px;
 }
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition: 1s;
+}
